@@ -4,7 +4,7 @@ import docusign from 'docusign-esign';
 import {apiClient} from '../../config';
 
 
-export const createEnvelope = async (args: {
+export const createEnvelopeFromFile = async (args: {
   filePath: string,
   basePath: string,
   accessToken: string,

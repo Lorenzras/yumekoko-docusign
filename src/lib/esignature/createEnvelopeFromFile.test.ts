@@ -2,14 +2,14 @@
 import {basePath} from '../../config';
 import {getJwtGrantToken} from '../authentication/fetchAccessToken';
 import {getAccountId} from '../authentication/fetchUserInfo';
-import {createEnvelope} from './createEnvelope';
+import {createEnvelopeFromFile} from './createEnvelopeFromFile';
 import path from 'path';
 
 describe('Create Envelope', ()=>{
   it('should create envelope then send', async ()=>{
     const token = await getJwtGrantToken();
     const accountId = await getAccountId();
-    const result = await createEnvelope({
+    const result = await createEnvelopeFromFile({
       accessToken: token.accessToken,
       accountId,
       basePath: basePath,
