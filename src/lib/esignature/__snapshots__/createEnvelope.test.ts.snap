@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Envelope should create envelope then send 1`] = `
+Object {
+  "envelopeId": "fa11d252-6da6-49b5-b6af-29b899b25936",
+}
+`;

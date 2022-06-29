@@ -1,10 +1,10 @@
 import {apiClient, ds, integratorKey, userId} from '../../../config';
-import {getAccessToken} from '../getAccessToken';
-import {getUserInfo} from '../getUserInfo';
+import {fetchAccessToken} from '../fetchAccessToken';
+import {getUserInfo} from '../fetchUserInfo';
 describe('DS API', ()=>{
   it('should list folders', async () => {
-    const {accounts} = await getUserInfo();
-    const {accountId} = accounts[0];
+    const {accounts} = await getUserInfo() || {};
+    const {accountId} = accounts?.[0] || {};
 
 
     const api = new ds.FoldersApi(apiClient);
