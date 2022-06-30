@@ -26,7 +26,7 @@ export const getEnvelopDefinition = async (
 
   const dsCustAddress: Text = {
     tabLabel: 'custAddress',
-    value: `〒${postal.value} ${address1.value}${address2}`,
+    value: `〒${postal.value} ${address1.value}${address2.value}`,
   };
 
   const dsCompanyAddress: Text = {
