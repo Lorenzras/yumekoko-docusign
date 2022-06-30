@@ -51,7 +51,6 @@ export const fetchAccessToken = async () => {
       'Authorization', `Bearer ${results.body.access_token}`,
     );
 
-    console.log('PAST', isPast(jwtGrantToken!.tokenExpirationTimestamp));
 
     jwtGrantToken = {
       accessToken: results.body.access_token,
