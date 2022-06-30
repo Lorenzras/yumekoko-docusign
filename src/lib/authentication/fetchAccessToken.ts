@@ -1,4 +1,4 @@
-import {addSeconds, subMinutes} from 'date-fns';
+import {addSeconds, isPast, parse, parseISO, subMinutes} from 'date-fns';
 import {
   getPrivateKey,
   integratorKey,
@@ -11,6 +11,7 @@ import {
 
 let jwtGrantToken: {
   accessToken: string,
+  tokenCreated: Date,
   tokenExpirationTimestamp: Date
 } | undefined;
 
@@ -40,8 +41,9 @@ export const fetchAccessToken = async () => {
         expiresIn,
       );
 
+    const tokenCreatedDT = new Date();
     const expiresAt = subMinutes(
-      addSeconds(new Date(), +results.body.expires_in),
+      addSeconds(tokenCreatedDT, +results.body.expires_in),
       tokenReplaceMin,
     );
 
@@ -49,8 +51,11 @@ export const fetchAccessToken = async () => {
       'Authorization', `Bearer ${results.body.access_token}`,
     );
 
+    console.log('PAST', isPast(jwtGrantToken!.tokenExpirationTimestamp));
+
     jwtGrantToken = {
       accessToken: results.body.access_token,
+      tokenCreated: tokenCreatedDT,
       tokenExpirationTimestamp: expiresAt,
     };
   }
@@ -59,9 +64,14 @@ export const fetchAccessToken = async () => {
 };
 
 export const getJwtGrantToken = async () => {
-  if (!jwtGrantToken) {
+  // Generate token if expired
+  if (
+    !jwtGrantToken ||
+    (jwtGrantToken && isPast(jwtGrantToken.tokenExpirationTimestamp))
+  ) {
     return await fetchAccessToken();
   }
+
   return jwtGrantToken;
 };
 

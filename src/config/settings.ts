@@ -14,7 +14,7 @@ export const restApi = ds.ApiClient.RestApi;
 export const basePath = restApi.BasePath.DEMO;
 export const oAuthBasePath = oAuth.BasePath.DEMO;
 export const redirectURI = 'http://localhost';
-export const expiresIn = 10 * 60;
+export const expiresIn = 60 * 60 * 8;
 export const tokenReplaceMin = 10;
 
 
