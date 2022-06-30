@@ -51,7 +51,7 @@ export const getEnvelopDefinition = async (
       {
         'roleName': '受注者',
         'name': 'ここすも',
-        'email': 'cocosumo.rpa03@gmail.com',
+        'email': 'info@cocosumo.co.jp',
         'tabs': {
           textTabs: [dsCompanyAddress],
         },

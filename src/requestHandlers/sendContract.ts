@@ -11,6 +11,7 @@ type TProjId = {
 
 export const sendContract: RequestHandler = async (req, res) => {
   const body: TProjId = req.body;
+  console.log('Received', body);
   const projId = body.projId;
 
   try {
