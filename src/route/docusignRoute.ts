@@ -6,11 +6,14 @@ import {
 import {Router as router} from 'express';
 import bodyParser from 'body-parser';
 import {getAccountId} from '../lib/authentication/fetchUserInfo';
+import {sendContract} from '../requestHandlers/sendContract';
 
 const route = router();
-route.use(bodyParser.urlencoded({extended: true}));
+route.use(bodyParser.json());
+route.post('/send', sendContract);
 
-route.get('/', async (req, res)=>{
+
+route.post('/sendTest', async (req, res)=>{
   const accountId = await getAccountId();
   const result = await createEnvelopeFromTemplate({
     accountId,
@@ -31,7 +34,7 @@ route.get('/', async (req, res)=>{
       ],
     },
   });
-  res.status(200).json(result);
+  res.status(201).json(result);
 });
 
 

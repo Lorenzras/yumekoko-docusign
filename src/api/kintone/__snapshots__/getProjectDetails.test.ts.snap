@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getProjectDetails should get project details 1`] = `
+Object {
+  "record": Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "115",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "3",
+    },
+    "address1": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "豊橋市野依町",
+    },
+    "address2": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "wq223",
+    },
+    "addressKari": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "541774",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoConst",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "46",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "柴田　知伸",
+            },
+          },
+        },
+        Object {
+          "id": "541775",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoConst",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+          },
+        },
+      ],
+    },
+    "buildingType": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "マンション",
+    },
+    "cancelStatus": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "constructionName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "hdfdf様邸 造成・外構工事",
+    },
+    "constructionType": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "造成・外構工事",
+    },
+    "constructionTypeId": Object {
+      "type": "NUMBER",
+      "value": "6",
+    },
+    "custGroupId": Object {
+      "type": "NUMBER",
+      "value": "176",
+    },
+    "estatePurchaseDate": Object {
+      "type": "DATE",
+      "value": "2022-06-27",
+    },
+    "isAgentConfirmed": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "0",
+    },
+    "isChkAddressKari": Object {
+      "type": "NUMBER",
+      "value": "0",
+    },
+    "memo": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "cvxxc
+xcxcxc
+",
+    },
+    "planApplicationDate": Object {
+      "type": "DATE",
+      "value": "2022-06-27",
+    },
+    "postal": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "441-8124",
+    },
+    "rank": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "B",
+    },
+    "schedContractDate": Object {
+      "type": "DATE",
+      "value": "2022-06-27",
+    },
+    "schedContractPrice": Object {
+      "type": "NUMBER",
+      "value": "",
+    },
+    "status": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "追客中",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "115",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-06-27T09:11:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-06-27T09:12:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+  },
+}
+`;

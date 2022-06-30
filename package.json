@@ -8,7 +8,11 @@
     "dev": "nodemon src/main.ts",
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "rimraf ./build && tsc --project tsconfig.build.json",
-    "start": "npm run build && node build/main.js"
+    "start": "npm run build && node build/main.js",
+    "dtsgen:constDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ConstructionDetails -o src/types/data.constructionDetails.d.ts",
+    "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
+    "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts"
+
   },
   "keywords": [],
   "author": "",
@@ -37,7 +41,8 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "@kintone/rest-api-client": "^2.0.36",
+    "@kintone/dts-gen": "^6.1.4",
+    "@kintone/rest-api-client": "^2.0.38",
     "axios": "^0.27.2",
     "babel-jest": "^27.5.1",
     "babel-preset-env": "^1.7.0",

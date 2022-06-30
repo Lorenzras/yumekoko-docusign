@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getCustomerGroup should get customer group record 1`] = `
+Object {
+  "$id": Object {
+    "type": "__ID__",
+    "value": "176",
+  },
+  "$revision": Object {
+    "type": "__REVISION__",
+    "value": "35",
+  },
+  "agents": Object {
+    "type": "SUBTABLE",
+    "value": Array [
+      Object {
+        "id": "470442",
+        "value": Object {
+          "agentType": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "cocoAG",
+          },
+          "employeeId": Object {
+            "type": "NUMBER",
+            "value": "40",
+          },
+          "employeeName": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "沖永　誠治",
+          },
+        },
+      },
+    ],
+  },
+  "custType": Object {
+    "type": "RADIO_BUTTON",
+    "value": "個人",
+  },
+  "isDeleted": Object {
+    "type": "NUMBER",
+    "value": "0",
+  },
+  "members": Object {
+    "type": "SUBTABLE",
+    "value": Array [
+      Object {
+        "id": "541772",
+        "value": Object {
+          "address1": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "愛知県豊橋市野依町",
+          },
+          "address2": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "",
+          },
+          "customerId": Object {
+            "type": "NUMBER",
+            "value": "423",
+          },
+          "customerName": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "hdfdf",
+          },
+          "dump": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "{\\"key\\":\\"vYp8j\\",\\"id\\":\\"423\\",\\"index\\":0,\\"revision\\":\\"15\\",\\"custName\\":\\"hdfdf\\",\\"custNameReading\\":\\"sdsdsd\\",\\"gender\\":null,\\"birthYear\\":\\"\\",\\"birthMonth\\":\\"\\",\\"birthDay\\":\\"\\",\\"postal\\":\\"441-8124\\",\\"address1\\":\\"愛知県豊橋市野依町\\",\\"address2\\":\\"\\",\\"phone1\\":\\"07014529707\\",\\"phone1Rel\\":\\"子\\",\\"phone2\\":\\"\\",\\"phone2Rel\\":\\"\\",\\"email\\":\\"lenzras@gmail.com\\",\\"emailRel\\":\\"祖父母\\",\\"isSameAddress\\":false}",
+          },
+          "postal": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "441-8124",
+          },
+        },
+      },
+    ],
+  },
+  "projectCount": Object {
+    "type": "NUMBER",
+    "value": "1",
+  },
+  "projects": Object {
+    "type": "SUBTABLE",
+    "value": Array [
+      Object {
+        "id": "541777",
+        "value": Object {
+          "cancelStatus": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "",
+          },
+          "cocoConst1": Object {
+            "type": "NUMBER",
+            "value": "46",
+          },
+          "cocoConst1Name": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "柴田　知伸",
+          },
+          "cocoConst2": Object {
+            "type": "NUMBER",
+            "value": "",
+          },
+          "cocoConst2Name": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "",
+          },
+          "constructionId": Object {
+            "type": "NUMBER",
+            "value": "115",
+          },
+          "constructionName": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "hdfdf様邸 造成・外構工事",
+          },
+          "kariAddress": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "",
+          },
+          "projectAddress1": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "豊橋市野依町",
+          },
+          "projectAddress2": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "wq223",
+          },
+          "projectPostal": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "441-8124",
+          },
+          "status": Object {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "追客中",
+          },
+        },
+      },
+    ],
+  },
+  "storeId": Object {
+    "type": "NUMBER",
+    "value": "12",
+  },
+  "storeName": Object {
+    "type": "SINGLE_LINE_TEXT",
+    "value": "豊川中央店",
+  },
+  "territory": Object {
+    "type": "SINGLE_LINE_TEXT",
+    "value": "",
+  },
+  "レコード番号": Object {
+    "type": "RECORD_NUMBER",
+    "value": "176",
+  },
+  "作成日時": Object {
+    "type": "CREATED_TIME",
+    "value": "2022-05-14T17:03:00Z",
+  },
+  "作成者": Object {
+    "type": "CREATOR",
+    "value": Object {
+      "code": "RPA03",
+      "name": "ラス ロレンズ",
+    },
+  },
+  "更新日時": Object {
+    "type": "UPDATED_TIME",
+    "value": "2022-06-27T09:12:00Z",
+  },
+  "更新者": Object {
+    "type": "MODIFIER",
+    "value": Object {
+      "code": "RPA03",
+      "name": "ラス ロレンズ",
+    },
+  },
+}
+`;

@@ -9,13 +9,7 @@ import {EnvelopeDefinition, EnvelopesApi} from 'docusign-esign';
  */
 export const createEnvelopeFromTemplate = async (args: {
   accountId: string,
-  envelope: Required<Pick<
-  EnvelopeDefinition,
-  | 'templateId'
-  | 'emailSubject'
-  | 'templateRoles'
-  | 'status'
-  >>
+  envelope: EnvelopeDefinition
 }) => {
   const {accountId, envelope} = args;
 
