@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "test": "jest",
-    "start:dev": "nodemon src/main.ts",
+    "dev": "nodemon src/main.ts",
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "rimraf ./build && tsc --project tsconfig.build.json",
     "start": "npm run build && node build/main.js"
