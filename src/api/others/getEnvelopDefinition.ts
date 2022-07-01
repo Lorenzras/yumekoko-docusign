@@ -8,7 +8,6 @@ export const getEnvelopDefinition = async (
   projId: string,
 ): Promise<EnvelopeDefinition> => {
   const projectDetails = await getProjectDetails(projId);
-
   const custGrpDetails = await getCustomerGroup(
     projectDetails.custGroupId.value,
   );

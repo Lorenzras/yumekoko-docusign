@@ -1,5 +1,5 @@
 import {EnvelopeDefinition} from 'docusign-esign';
-export const createViewFromTemplete = (args: {
+export const createViewFromTemplate = (args: {
   accountId: string,
   envelope: EnvelopeDefinition
 }) => {

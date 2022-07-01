@@ -6,7 +6,7 @@ import {
 import {Router as router} from 'express';
 import bodyParser from 'body-parser';
 import {getAccountId} from '../lib/authentication/fetchUserInfo';
-import {sendContract} from '../requestHandlers/sendContract';
+import {sendContract} from '../handleRequest/sendContract';
 
 const route = router();
 route.use(bodyParser.json());

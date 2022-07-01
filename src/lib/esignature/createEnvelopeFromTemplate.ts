@@ -11,18 +11,24 @@ export const createEnvelopeFromTemplate = async (args: {
   accountId: string,
   envelope: EnvelopeDefinition
 }) => {
-  const {accountId, envelope} = args;
+  try {
+    const {accountId, envelope} = args;
+    console.log(args);
+    const envelopesApi = new EnvelopesApi(apiClient);
 
-  const envelopesApi = new EnvelopesApi(apiClient);
+    const results = await envelopesApi.createEnvelope(accountId, {
+      envelopeDefinition: envelope,
+    });
 
-  const results = await envelopesApi.createEnvelope(accountId, {
-    envelopeDefinition: envelope,
-  });
 
-  console.log(results);
+    const envelopeId = results.envelopeId;
+    console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
 
-  const envelopeId = results.envelopeId;
-  console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
-
-  return {envelopeId: envelopeId};
+    return {
+      envelopeId: envelopeId,
+      envelopesApi,
+    };
+  } catch (err: any) {
+    throw new Error(`Error ${err}`);
+  }
 };

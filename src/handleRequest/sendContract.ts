@@ -26,7 +26,7 @@ export const sendContract: RequestHandler = async (req, res) => {
     } else {
       res.status(400).send('<h1> 400 Bad Request</h1>');
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    res.status(400).send(`Request failed. ${error.message}`);
   }
 };

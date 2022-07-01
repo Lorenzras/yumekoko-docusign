@@ -4,18 +4,11 @@ import {getJwtGrantToken} from './fetchAccessToken';
 let userInfo: IGetUserInfoResponse | undefined;
 
 export const getAccountId = async () => {
-  const _userInfo = await getUserInfo();
+  const _userInfo = await fetchUserInfo();
 
   return _userInfo.accounts[0].accountId;
 };
 
-export const getUserInfo = async () => {
-  if (!userInfo) {
-    return await fetchUserInfo();
-  }
-
-  return userInfo;
-};
 
 /**
  * Get user info.
