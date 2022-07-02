@@ -1,9 +1,14 @@
 /* eslint-disable max-len */
 import {EnvelopeDefinition} from 'docusign-esign';
-import {getProjectDetails} from '../api/kintone';
-import {getCustomerGroup} from '../api/kintone/getCustomerGroup';
+
 import {templateIds} from '../config/envelopeTemplates';
 
+/**
+ * @deprecated This was used for testing.
+ *
+ * @param args
+ * @returns {object} Data
+ */
 export const getUkeoiKeiyakusho = async (
   args :
   {

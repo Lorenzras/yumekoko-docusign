@@ -1,15 +1,20 @@
+/* eslint-disable max-len */
 import {EnvelopesApi} from 'docusign-esign';
+
+import {getAccountId} from '../authentication/fetchUserInfo';
+import {apiClient} from '../../config';
+import {getProjectDetails} from '../../api/kintone';
+import {getCustomerGroup} from '../../api/kintone/getCustomerGroup';
 import {makeUkeoiEnvelope} from '../envelopes/makeUkeoiEnvelope';
-import {getAccountId} from '../lib/authentication/fetchUserInfo';
-import {apiClient} from '../config';
-import {getProjectDetails} from '../api/kintone';
-import {getCustomerGroup} from '../api/kintone/getCustomerGroup';
 
 export const sendUkeoi = async (projId: string) => {
   const accountId = await getAccountId();
   const {
     custGroupId,
     constructionName,
+    postal: projPostal,
+    address1: projAddress1,
+    address2: projAddress2,
   } = await getProjectDetails(projId);
 
   const custGrpDetails = await getCustomerGroup(
@@ -31,6 +36,10 @@ export const sendUkeoi = async (projId: string) => {
     custName: customerName.value,
     projId: projId,
     projName: constructionName.value,
+    custAddress: `〒${postal.value} ${address1.value}${address2.value}`,
+    projLocation: `〒${projPostal.value} ${projAddress1.value}${projAddress2.value}`,
+    repEmail: 'cocosumo.rpa03@gmail.com',
+    repName: '高橋　加奈',
   });
   const envelopesApi = new EnvelopesApi(apiClient);
 
