@@ -5,7 +5,7 @@ import {getAccountId} from '../authentication/fetchUserInfo';
 import {apiClient} from '../../config';
 import {getProjectDetails} from '../../api/kintone';
 import {getCustomerGroup} from '../../api/kintone/getCustomerGroup';
-import {makeUkeoiEnvelope} from '../envelopes/makeUkeoiEnvelope';
+import {makeUkeoiEnvelope} from './makeUkeoiEnvelope';
 
 export const sendUkeoi = async (projId: string) => {
   const accountId = await getAccountId();
@@ -41,6 +41,7 @@ export const sendUkeoi = async (projId: string) => {
     repEmail: 'cocosumo.rpa03@gmail.com',
     repName: '高橋　加奈',
   });
+
   const envelopesApi = new EnvelopesApi(apiClient);
 
   const results = await envelopesApi.createEnvelope(

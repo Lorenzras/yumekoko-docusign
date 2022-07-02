@@ -5,7 +5,7 @@ type TProjId = {
   projId?: string
 }
 
-export const sendUkeoiRequest: RequestHandler = async (req, res) => {
+export const sendUkeoiReq: RequestHandler = async (req, res) => {
   const body: TProjId = req.body;
   console.log('Received', body);
   const projId = body.projId;
