@@ -22,7 +22,6 @@ export const generateUkeoiExcel = async (
     projId, projName,
     projLocation,
     repName,
-
   }: TUkeoiFields,
   outputType: 'buffer' | 'b64' | 'xlsx' = 'xlsx',
 ) => {
@@ -70,9 +69,12 @@ export const generateUkeoiExcel = async (
  * Creates envelope from file
  *
  * @param args
+ * @param status Status of created envelope
  * @returns {EnvelopeDefinition} the envelope object
  */
-export const makeUkeoiEnvelope = async (args :TUkeoiFields) => {
+export const makeUkeoiEnvelope = async (
+  args :TUkeoiFields,
+  status: 'created' | 'sent' = 'sent') => {
   const {
     custEmail, custName,
     repName, repEmail,
@@ -123,7 +125,7 @@ export const makeUkeoiEnvelope = async (args :TUkeoiFields) => {
     recipients: {
       signers: [customerSigner, companySigner],
     },
-    status: 'sent',
+    status: status,
   };
 
   return env;
