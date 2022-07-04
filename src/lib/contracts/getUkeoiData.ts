@@ -9,6 +9,7 @@ export const getUkeoiData = async (projId: string) => {
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
+    dsEnvIdUkeoi,
   } = await getProjectDetails(projId);
 
   const custGrpDetails = await getCustomerGroup(
@@ -34,6 +35,7 @@ export const getUkeoiData = async (projId: string) => {
     projLocation: `〒${projPostal.value} ${projAddress1.value}${projAddress2.value}`,
     repEmail: 'cocosumo.rpa03@gmail.com',
     repName: '高橋　加奈',
+    envelopeId: dsEnvIdUkeoi.value,
   };
 
   return projData;

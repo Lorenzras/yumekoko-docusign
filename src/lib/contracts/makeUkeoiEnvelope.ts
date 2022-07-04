@@ -23,7 +23,7 @@ export const generateUkeoiExcel = async (
     projLocation,
     repName,
   }: TUkeoiFields,
-  outputType: 'buffer' | 'b64' | 'xlsx' = 'xlsx',
+  outputType: 'buffer' | 'b64' | 'xlsx' | 'binary' = 'xlsx',
 ) => {
   const ukeoiFile = path.join(__dirname, 'assets', '請負契約書.xlsx' );
 
@@ -61,6 +61,9 @@ export const generateUkeoiExcel = async (
       return await workbook.xlsx.writeBuffer();
     case 'xlsx':
       return workbook.xlsx;
+    case 'binary':
+      return Buffer.from(await workbook.xlsx.writeBuffer())
+        .toString('binary');
   }
 };
 
@@ -68,17 +71,17 @@ export const generateUkeoiExcel = async (
 /**
  * Creates envelope from file
  *
- * @param args
+ * @param data
  * @param status Status of created envelope
  * @returns {EnvelopeDefinition} the envelope object
  */
 export const makeUkeoiEnvelope = async (
-  args :TUkeoiFields,
+  data :TUkeoiFields,
   status: 'created' | 'sent' = 'sent') => {
   const {
     custEmail, custName,
     repName, repEmail,
-  } = args;
+  } = data;
 
   const customerSigner: Signer = {
     email: custEmail,
@@ -116,7 +119,7 @@ export const makeUkeoiEnvelope = async (
     emailSubject: '請負契約書です。サインをお願い致します。',
     documents: [
       {
-        documentBase64: await generateUkeoiExcel(args, 'b64') as string,
+        documentBase64: await generateUkeoiExcel(data, 'b64') as string,
         name: '請負契約書',
         fileExtension: 'xls',
         documentId: '1',

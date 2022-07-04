@@ -1,5 +1,5 @@
 import {RequestHandler} from 'express';
-import {sendUkeoi} from '../lib/contracts/sendUkeoi';
+import {processUkeoi} from '../lib/contracts/processUkeoi';
 
 
 export const sendUkeoiReq: RequestHandler = async (req, res) => {
@@ -9,7 +9,7 @@ export const sendUkeoiReq: RequestHandler = async (req, res) => {
 
   try {
     if (projId && typeof projId === 'string') {
-      const result = await sendUkeoi(projId);
+      const result = await processUkeoi(projId);
       console.log('Success');
       res.status(200).json(result);
     } else {

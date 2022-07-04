@@ -1,8 +1,8 @@
-import {sendUkeoi} from './sendUkeoi';
+import {processUkeoi} from './processUkeoi';
 
 describe('sendUkeoi', ()=>{
   it('should send ukeoi', async ()=>{
-    const result = await sendUkeoi('111');
+    const result = await processUkeoi('111');
     expect(result).toMatchSnapshot();
   }, 30000);
 });

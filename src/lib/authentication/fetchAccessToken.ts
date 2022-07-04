@@ -62,6 +62,12 @@ export const fetchAccessToken = async () => {
   return jwtGrantToken;
 };
 
+/**
+ * Get JWT Grant token or
+ * request another if it's already expired or
+ * does not exist
+ * @returns {JWTGrantTokenObj} Object containing jwt grant token
+ */
 export const getJwtGrantToken = async () => {
   // Generate token if expired
   if (

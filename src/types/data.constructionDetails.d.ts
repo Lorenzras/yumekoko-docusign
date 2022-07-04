@@ -11,6 +11,7 @@ declare namespace ConstructionDetails {
     constructionName: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.Number;
     estatePurchaseDate: kintone.fieldTypes.Date;
+    dsEnvIdUkeoi: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
     address2: kintone.fieldTypes.SingleLineText;
