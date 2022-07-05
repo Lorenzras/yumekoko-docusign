@@ -37,3 +37,5 @@ export const apiClient = new ds.ApiClient({
 
 });
 
+console.log('Integrator key ' + integratorKey);
+

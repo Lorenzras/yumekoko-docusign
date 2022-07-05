@@ -1,3 +1,5 @@
 type TProjIdReq = {
-  projId?: string
+  projId?: string,
+  envelopeId?: string,
+  origin?: string
 }

@@ -1,4 +1,5 @@
-import {addSeconds, isPast, parse, parseISO, subMinutes} from 'date-fns';
+/* eslint-disable max-len */
+import {addSeconds, differenceInSeconds, isPast, parse, parseISO, subMinutes} from 'date-fns';
 import {
   getPrivateKey,
   integratorKey,
@@ -30,7 +31,6 @@ export const fetchAccessToken = async () => {
 
   if (!jwtGrantToken) {
     const privateKey = await getPrivateKey();
-
 
     const results: IRequestJWTUserTokenResponse = await apiClient
       .requestJWTUserToken(
@@ -70,10 +70,17 @@ export const fetchAccessToken = async () => {
  */
 export const getJwtGrantToken = async () => {
   // Generate token if expired
+
+  if (jwtGrantToken?.tokenExpirationTimestamp) {
+    const secDiff = differenceInSeconds(jwtGrantToken.tokenExpirationTimestamp, new Date());
+    console.log(`JWT is valid for ${secDiff} seconds`);
+  }
+
   if (
     !jwtGrantToken ||
     (jwtGrantToken && isPast(jwtGrantToken.tokenExpirationTimestamp))
   ) {
+    console.log('Refreshing token.');
     return await fetchAccessToken();
   }
 

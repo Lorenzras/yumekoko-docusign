@@ -1,7 +1,7 @@
 
 import {Router as router} from 'express';
 import bodyParser from 'body-parser';
-import {sendUkeoiReq} from '../handleRequest/sendUkeoiReq';
+import {sendUkeoiReq, sendUkeoiReqDirect} from '../handleRequest/sendUkeoiReq';
 import {downloadUkeoiReq} from '../handleRequest/downloadUkeoiReq';
 import {previewUkeoiReq} from './../handleRequest/previewUkeoiReq';
 
@@ -12,8 +12,9 @@ route.use(bodyParser.json());
 
 route.post('/ukeoi/preview', previewUkeoiReq);
 route.get('/ukeoi/download', downloadUkeoiReq);
-
 route.post('/ukeoi', sendUkeoiReq);
+
+route.post('/ukeoi/direct', sendUkeoiReqDirect);
 
 
 route.get('/test', (req, res)=>{

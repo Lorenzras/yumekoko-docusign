@@ -1,6 +1,6 @@
 
 /* eslint-disable max-len */
-import {EnvelopesApi} from 'docusign-esign';
+import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
 import {getAccountId} from '../authentication/fetchUserInfo';
 import {apiClient} from '../../config';
 import {makeUkeoiEnvelope} from './makeUkeoiEnvelope';
@@ -25,25 +25,34 @@ export const processUkeoi = async (
     const data = await getUkeoiData(projId);
     const envelopesApi = new EnvelopesApi(apiClient);
     const envelope = await makeUkeoiEnvelope(data, status);
-    let results;
+    let results: EnvelopeSummary;
 
     if (data.envelopeId) {
-      console.log('Already have envelope Id');
-      const {status} = await getEnvelope(accountId, data.envelopeId);
+      console.log(`Already have envelope Id. ${data.envelopeId} Updating...`);
+      const envelopeSummary = await getEnvelope(accountId, data.envelopeId);
+      const {status} = envelopeSummary;
       console.log('Status is', status);
-      if (status === 'sent') throw new Error('Can not modify sent data');
-      results = await updateDocuments({
-        envelope,
-        envelopeId: data.envelopeId,
-      });
+      results = envelopeSummary;
+
+      // Can't modify documents that are already sent.
+      if (status !== 'sent') {
+        await updateDocuments({
+          envelope,
+          envelopeId: data.envelopeId,
+        });
+      }
     } else {
+      // If envelope does not exist, create it.
       results = await envelopesApi.createEnvelope(
         accountId,
         {
           envelopeDefinition: envelope,
         },
       );
-      await setEnvelopeId(projId, data.envelopeId);
+
+      if (results.envelopeId) {
+        await setEnvelopeId(projId, results.envelopeId);
+      }
     }
 
 
