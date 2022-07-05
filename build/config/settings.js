@@ -13,7 +13,7 @@ exports.restApi = exports.ds.ApiClient.RestApi;
 exports.basePath = exports.restApi.BasePath.DEMO;
 exports.oAuthBasePath = exports.oAuth.BasePath.DEMO;
 exports.redirectURI = 'http://localhost';
-exports.expiresIn = 10 * 60;
+exports.expiresIn = 60 * 60 * 8;
 exports.tokenReplaceMin = 10;
 const getPrivateKey = () => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     return yield promises_1.default
