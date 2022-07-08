@@ -3,7 +3,11 @@ import {templateIds} from '../../config/envelopeTemplates';
 import {getProjectDetails} from '../kintone';
 import {getCustomerGroup} from '../kintone/getCustomerGroup';
 
-
+/**
+ * @deprecated in favor of more robust API
+ * @param projId
+ * @returns {void}
+ */
 export const getEnvelopDefinition = async (
   projId: string,
 ): Promise<EnvelopeDefinition> => {

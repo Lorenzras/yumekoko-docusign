@@ -29,7 +29,10 @@ let jwtGrantToken: {
 export const fetchAccessToken = async () => {
   // moment().add(results.body.expires_in, 's').subtract(tokenReplaceMin, 'm')
 
-  if (!jwtGrantToken) {
+  if (
+    !jwtGrantToken ||
+    (jwtGrantToken && isPast(jwtGrantToken.tokenExpirationTimestamp))
+  ) {
     const privateKey = await getPrivateKey();
 
     const results: IRequestJWTUserTokenResponse = await apiClient
@@ -76,14 +79,7 @@ export const getJwtGrantToken = async () => {
     console.log(`JWT is valid for ${secDiff} seconds`);
   }
 
-  if (
-    !jwtGrantToken ||
-    (jwtGrantToken && isPast(jwtGrantToken.tokenExpirationTimestamp))
-  ) {
-    console.log('Refreshing token.');
-    return await fetchAccessToken();
-  }
 
-  return jwtGrantToken;
+  return await fetchAccessToken();
 };
 
