@@ -3,6 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import {degrees, PDFDocument, PDFPage, PDFPageDrawTextOptions, rgb, StandardFonts} from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
+// eslint-disable-next-line import/default
+import {fromBuffer} from 'pdf2pic';
 
 /**
  * Hackish solution to implement font-weight (bold)
@@ -11,12 +13,13 @@ import fontkit from '@pdf-lib/fontkit';
  *
  * @param pdfPage
  * @param text
- * @param {PDFPageDrawTextOptions} drawTextOptions
+ * @param contentType
  * @param weight font weight in decimal. Default is 0.4
  */
 const drawText = async (
   pdfPage: PDFPage,
   text: string,
+
   {
     x,
     y,
@@ -37,10 +40,13 @@ const drawText = async (
   }
 };
 
-export const generatePdfUkeoi = async ({
-  custName, projId, projName, custAddress,
-  projLocation, repName,
-}: TUkeoiFields) => {
+export const generatePdfUkeoi = async (
+  {
+    custName, projId, projName, custAddress,
+    projLocation, repName,
+  }: TUkeoiFields,
+  contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
+) => {
   const url = path.join(__dirname, 'assets', '請負契約書.pdf');
   const existingPdfBytes = await fs.readFile(url);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -48,7 +54,7 @@ export const generatePdfUkeoi = async ({
   const fontData = await fs.readFile(path.join(__dirname, 'assets', 'MSMINCHO.TTF'));
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);
-  const msChinoFont = await pdfDoc.embedFont(fontData);
+  const msChinoFont = await pdfDoc.embedFont(fontData, {subset: true});
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -154,7 +160,11 @@ export const generatePdfUkeoi = async ({
   );
 
 
-  const pdfBytes = await pdfDoc.save();
-
-  return pdfBytes;
+  switch (contentType) {
+    case 'base64':
+      return await pdfDoc.saveAsBase64();
+    case 'Uint8Array ':
+    default:
+      return await pdfDoc.save();
+  }
 };

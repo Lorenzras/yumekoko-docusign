@@ -15,7 +15,7 @@ const dummy : TUkeoiFields = {
 
 describe('pdf', ()=>{
   it('should modify pdf', async ()=>{
-    const result = await generatePdfUkeoi(dummy);
+    const result = await generatePdfUkeoi(dummy, 'img');
     await fs.writeFile(path.join(__dirname, 'assets', 'test.pdf'), result);
     expect('result').toMatchSnapshot();
   }, 30000);

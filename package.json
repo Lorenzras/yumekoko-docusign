@@ -55,7 +55,9 @@
     "immer": "^9.0.14",
     "lodash": "^4.17.21",
     "node-cron": "^3.0.0",
+    "pdf-img-convert": "^1.0.6",
     "pdf-lib": "^1.17.1",
+    "pdf2pic": "^2.1.4",
     "rmfr": "^2.0.0",
     "winston": "^3.6.0",
     "winston-daily-rotate-file": "^4.7.1"
