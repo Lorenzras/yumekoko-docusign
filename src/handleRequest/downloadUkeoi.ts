@@ -4,8 +4,11 @@ import {Xlsx} from 'exceljs';
 import {getUkeoiData} from '../lib/contracts/getUkeoiData';
 import {generateXlsxUkeoi} from '../lib/contracts/generateXlsxUkeoi';
 
-export const downloadUkeoiReq: RequestHandler = async (req, res) => {
-  const projId = req.query.projId as string;
+export const downloadUkeoi: RequestHandler = async (req, res) => {
+  const {
+    projId,
+    type,
+  } = req.query as Record<string, string>;
 
   console.log('Received project id', projId);
   if (projId) {

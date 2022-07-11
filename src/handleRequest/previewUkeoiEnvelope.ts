@@ -4,7 +4,7 @@ import {EnvelopesApi} from 'docusign-esign';
 import {RequestHandler} from 'express';
 import {processUkeoi} from '../lib/contracts/processUkeoi';
 import {apiClient} from '../config';
-import {arrayToBase64} from './../utils/arrayToBase64';
+import {arrayToBase64} from '../utils/arrayToBase64';
 import {docusignLocale} from '../lib/locale/docusign';
 import {createSenderView} from '../api/docusign/createSenderView';
 
@@ -20,7 +20,7 @@ type TPreviewResp = {
  * @param req
  * @param res
  */
-export const previewUkeoiReq: RequestHandler = async (req, res) => {
+export const previewUkeoiEnvelope: RequestHandler = async (req, res) => {
   const {projId} = req.body as Record<string, string>;
   console.log(`Received project id ${projId} ${req.get('origin')}`);
   if (projId) {
