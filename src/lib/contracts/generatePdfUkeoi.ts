@@ -6,6 +6,7 @@ import fontkit from '@pdf-lib/fontkit';
 // eslint-disable-next-line import/default
 import {fromBuffer} from 'pdf2pic';
 
+
 /**
  * Hackish solution to implement font-weight (bold)
  * I will update this, once pdf-lib officially support it.
