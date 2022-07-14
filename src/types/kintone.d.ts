@@ -3,3 +3,5 @@ type TProjIdReq = {
   envelopeId?: string,
   origin?: string
 }
+
+type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;

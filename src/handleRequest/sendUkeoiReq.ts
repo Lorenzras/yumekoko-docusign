@@ -40,6 +40,6 @@ export const sendUkeoiReq: RequestHandler = async (req, res) => {
       res.status(401).send('<h1> 400 Bad Request</h1>');
     }
   } catch (error: any) {
-    res.status(400).send(`Request failed. ${error.message}`);
+    res.status(200).send(`Request failed. ${error.message}`);
   }
 };
