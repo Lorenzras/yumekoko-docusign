@@ -1,4 +1,10 @@
-
+/**
+ * Recipient status
+ * https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/
+ *
+ *
+ *
+ */
 
 type TEnvelope = {
   signerEmail : string,
@@ -65,8 +71,10 @@ const events = [
   'sms-opt-out',
 ] as const;
 
-interface ConnectEvent {
-  event: typeof events[number],
+type TConnectEventType = typeof events[number];
+
+interface IConnectEvent {
+  event: TConnectEventType,
   uri: string,
   retryCount: string,
   configurationId: string,

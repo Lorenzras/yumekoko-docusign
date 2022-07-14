@@ -15,12 +15,13 @@
  */
 
 import {RequestHandler} from 'express';
-import {updateKintone} from './updateKintone';
+import {removeFromKintone} from './removeFromKintone';
+import {saveToKintone} from './saveToKintone';
 
 
 export const handleTriggers: RequestHandler = async (req, res) =>{
   try {
-    const payload: ConnectEvent = req.body;
+    const payload: IConnectEvent = req.body;
     const {
       event,
       data,
@@ -29,15 +30,20 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
     let message = 'Handled by the server.';
 
     switch (event) {
+      case 'envelope-voided':
+        await removeFromKintone(data.envelopeId);
+        break;
       case 'envelope-sent':
       case 'envelope-completed':
-        await updateKintone(payload);
+      case 'recipient-completed':
+        await saveToKintone(payload);
         break;
       default:
         message = 'This event is unhandled';
     }
 
-    console.log(event, data.envelopeId);
+
+    console.log(event, data.envelopeId, data.envelopeSummary.recipients);
     res.status(200).send(message);
   } catch (err: any) {
     // Docusign connect must always received 200 success
