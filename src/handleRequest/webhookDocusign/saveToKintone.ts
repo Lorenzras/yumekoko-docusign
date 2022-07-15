@@ -1,6 +1,6 @@
 
 import {APPIDS, KintoneClient, KintoneRecord} from '../../api/kintone';
-import {getProjIdByEnvelope} from '../../api/kintone/getProjIdByEnvelope';
+import {getProjByEnvelope} from '../../api/kintone/getProjByEnvelope';
 
 const uploadFile = async ({fileBase64, filename} :
 {
@@ -24,15 +24,19 @@ const updateRecord = async ( {
   filename,
   envelopeStatus,
   event,
+  recipients,
 } : {
   envelopeId: string,
   fileBase64: string
   filename: string,
   envelopeStatus: string,
-  event: TConnectEventType
+  event: TConnectEventType,
+  recipients: IRecipient[]
 }) => {
   // Search the id by envelope id,
-  const recordId = await getProjIdByEnvelope(envelopeId);
+  const {
+    $id: recordId,
+  } = await getProjByEnvelope(envelopeId);
 
   // Upload the file
   let fileKey = '';
@@ -47,24 +51,36 @@ const updateRecord = async ( {
 
   // update record and attach the file
   const record : Partial<ConstructionDetails.SavedData> = {
+
     envelopeId: {
       value: envelopeId,
     },
     envelopeStatus: {
       value: envelopeStatus,
     },
+    envelopeRecipients: {
+      value: JSON.stringify(recipients),
+    },
+
     // Conditionally update attached file if a new file is uploaded
     ...(
-      fileKey ? {documents: {
-        value: [{fileKey: fileKey}],
-      }} : {}
+      fileKey ?
+        {documents: {
+          type: 'FILE',
+          value: [{
+            fileKey: fileKey,
+            contentType: 'pdf',
+            name: '',
+            size: '',
+          }],
+        }} : {}
     ),
 
   };
 
   const result = await KintoneRecord.updateRecord({
     app: APPIDS.constructionDetails,
-    id: recordId,
+    id: recordId.value,
     record,
   });
 
@@ -86,7 +102,7 @@ export const saveToKintone = async (payload: IConnectEvent) => {
       envelopeSummary: {
         status,
         envelopeDocuments,
-
+        recipients,
       },
 
     },
@@ -103,6 +119,7 @@ export const saveToKintone = async (payload: IConnectEvent) => {
     fileBase64: PDFBytes,
     filename: name,
     event,
+    recipients,
   });
 
   // await fs.writeFile(path.join(__dirname, 'test.pdf'), PDFBytes, 'base64');

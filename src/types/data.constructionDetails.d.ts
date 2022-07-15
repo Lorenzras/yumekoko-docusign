@@ -13,8 +13,10 @@ declare namespace ConstructionDetails {
     custGroupId: kintone.fieldTypes.Number;
     estatePurchaseDate: kintone.fieldTypes.Date;
     dsEnvIdUkeoi: kintone.fieldTypes.SingleLineText;
+    voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
+    envelopeRecipients: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;

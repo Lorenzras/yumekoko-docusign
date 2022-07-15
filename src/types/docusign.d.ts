@@ -73,6 +73,27 @@ const events = [
 
 type TConnectEventType = typeof events[number];
 
+interface IRecipient {
+  creationReason: string,
+  isBulkRecipient: string,
+  requireUploadSignature: string,
+  name: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  recipientId: string,
+  recipientIdGuid: string,
+  requireIdLookup: string,
+  userId: string,
+  routingOrder: string,
+  note: string,
+  roleName: string,
+  status: string,
+  completedCount: string,
+  deliveryMethod: string,
+  recipientType: string
+}
+
 interface IConnectEvent {
   event: TConnectEventType,
   uri: string,
@@ -102,7 +123,7 @@ interface IConnectEvent {
         accountId: string,
         email: string
       },
-      recipients: Record<string, any>,
+      recipients: IRecipient[],
       envelopeDocuments: [
         {
           documentId: string,

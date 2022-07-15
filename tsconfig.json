@@ -25,10 +25,12 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "importHelpers": true,
   },
-  //"files": [],
+  "files": [
+    "./node_modules/@kintone/dts-gen/kintone.d.ts"
+  ],
   "include": [
     "src/**/*",
     //"/src/types/longtermCust.d.ts",
-    // /"./node_modules/@kintone/dts-gen/kintone.d.ts"
+    //"./node_modules/@kintone/dts-gen/kintone.d.ts"
   ],
 }

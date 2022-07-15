@@ -15,7 +15,7 @@
  */
 
 import {RequestHandler} from 'express';
-import {removeFromKintone} from './removeFromKintone';
+import {voidEnvelope} from './voidEnvelope';
 import {saveToKintone} from './saveToKintone';
 
 
@@ -31,9 +31,9 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
 
     switch (event) {
       case 'envelope-voided':
-        await removeFromKintone(data.envelopeId);
+        await voidEnvelope(data.envelopeId);
         break;
-      case 'envelope-sent':
+      // case 'envelope-sent':
       case 'envelope-completed':
       case 'recipient-completed':
         await saveToKintone(payload);
