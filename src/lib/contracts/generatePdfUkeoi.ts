@@ -1,10 +1,8 @@
 /* eslint-disable max-len */
 import fs from 'fs/promises';
 import path from 'path';
-import {degrees, PDFDocument, PDFPage, PDFPageDrawTextOptions, rgb, StandardFonts} from 'pdf-lib';
+import {PDFDocument, PDFPage, PDFPageDrawTextOptions, rgb} from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
-// eslint-disable-next-line import/default
-import {fromBuffer} from 'pdf2pic';
 
 
 /**

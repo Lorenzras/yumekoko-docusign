@@ -17,18 +17,22 @@ export const downloadUkeoi: RequestHandler = async (req, res) => {
   let file;
 
   if (projId) {
-    const data = await getUkeoiData(projId);
+    const record = await getUkeoiData(projId);
+    const {projName, envelopeStatus} = record;
     switch (fileType) {
       case 'xlsx':
-        file = await generateXlsxUkeoi(data, 'xlsx') as Xlsx;
-        res.attachment(`請負契約書 - ${data.projName}.xlsx`)
+        file = await generateXlsxUkeoi(record, 'xlsx') as Xlsx;
+        res.attachment(`請負契約書 - ${projName}.xlsx`)
           .status(200);
         await file.write(res);
         break;
       case 'pdf':
-        file = await generatePdfUkeoi(data);
-        res.status(200).send({
-          data: file,
+        file = await generatePdfUkeoi(record, 'base64');
+
+        res.status(200).json({
+          // Array here to accomodate multi-documents in the future
+          documents: [file],
+          envelopeStatus,
         });
     }
     res.end();

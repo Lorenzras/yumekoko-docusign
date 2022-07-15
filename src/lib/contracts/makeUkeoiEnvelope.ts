@@ -6,6 +6,7 @@ import {
 import path from 'path';
 
 import excel from 'exceljs';
+import {generatePdfUkeoi} from './generatePdfUkeoi';
 
 
 /**
@@ -83,6 +84,8 @@ export const makeUkeoiEnvelope = async (
     repName, repEmail,
   } = data;
 
+  const documentBase64 = await generatePdfUkeoi(data, 'base64') as string;
+
   const customerSigner: Signer = {
     email: custEmail,
     name: custName,
@@ -119,7 +122,7 @@ export const makeUkeoiEnvelope = async (
     emailSubject: '請負契約書です。サインをお願い致します。',
     documents: [
       {
-        documentBase64: await generateUkeoiExcel(data, 'b64') as string,
+        documentBase64: documentBase64,
         name: '請負契約書',
         fileExtension: 'xls',
         documentId: '1',

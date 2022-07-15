@@ -2,7 +2,11 @@ import {RequestHandler} from 'express';
 import {createSenderView} from '../api/docusign/createSenderView';
 import {processUkeoi} from '../lib/contracts/processUkeoi';
 
-
+/**
+ * Send contract directly without opening an intermediary link
+ * @param req
+ * @param res
+ */
 export const sendUkeoiReqDirect: RequestHandler = async (req, res) => {
   console.log('sendUkeoiReqDirect', req.get('origin'));
   const body: TProjIdReq = req.body;
@@ -11,19 +15,36 @@ export const sendUkeoiReqDirect: RequestHandler = async (req, res) => {
   try {
     if (projId && typeof projId === 'string') {
       const result = await processUkeoi(projId);
-      console.log('Success');
-      res.status(200).json(result);
+      const {
+        documents,
+        envelopeSummary: {
+          status = '',
+          envelopeId = '',
+        } = {},
+      } = result;
+
+      const sendResp : ISendEnvelopeResponse = {
+        documents: documents ?? [],
+        envelopeId,
+        envelopeStatus: status,
+      };
+
+      if (status) {
+        res.status(200).json(sendResp);
+      } else {
+        throw new Error('Envelope creation failed');
+      }
     } else {
-      res.status(401).send('<h1> 400 Bad Request</h1>');
+      res.status(401).send('Bad Request');
     }
   } catch (error: any) {
     res.status(400).send(`Request failed. ${error.message}`);
   }
 };
 
+// Will return URL.
 export const sendUkeoiReq: RequestHandler = async (req, res) => {
   const body: TProjIdReq = req.body;
-
 
   const {
     envelopeId = '',

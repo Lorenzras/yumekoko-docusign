@@ -7,7 +7,8 @@ import {makeUkeoiEnvelope} from './makeUkeoiEnvelope';
 import {getUkeoiData} from './getUkeoiData';
 import {getEnvelope} from '../../api/docusign/getEnvelope';
 import {updateDocuments} from '../../api/docusign/updateDocuments';
-import {setEnvelopeId} from '../../api/kintone/setEnvelopeId';
+import {updateProject} from '../../api/kintone/updateProject';
+
 
 /**
  * Creates or updates envelope of the defined project Id
@@ -19,48 +20,65 @@ import {setEnvelopeId} from '../../api/kintone/setEnvelopeId';
 export const processUkeoi = async (
   projId: string,
   status: 'created' | 'sent' = 'sent',
-) => {
+) : Promise<{
+  envelopeSummary?: EnvelopeSummary,
+  documents?: string[],
+  accountId: string,
+  error?: string
+}> => {
+  let accountId = '';
   try {
-    const accountId = await getAccountId();
+    accountId = await getAccountId();
     const data = await getUkeoiData(projId);
     const envelopesApi = new EnvelopesApi(apiClient);
     const envelope = await makeUkeoiEnvelope(data, status);
-    let results: EnvelopeSummary;
+    let envSummary: EnvelopeSummary = Object.create(null);
+    let envDocFileKeys: string[] = [];
 
-    if (data.envelopeId) {
-      console.log(`Already have envelope Id. ${data.envelopeId} Updating...`);
-      const envelopeSummary = await getEnvelope(accountId, data.envelopeId);
-      const {status} = envelopeSummary;
-      console.log('Status is', status);
-      results = envelopeSummary;
+    if (data.envelopeId) throw new Error(`Envelope already exist. ${data.envelopeId}`);
 
-      // Can't modify documents that are already sent.
-      if (status !== 'sent') {
-        await updateDocuments({
-          envelope,
-          envelopeId: data.envelopeId,
-        });
-      }
-    } else {
-      // If envelope does not exist, create it.
-      results = await envelopesApi.createEnvelope(
-        accountId,
-        {
-          envelopeDefinition: envelope,
-        },
-      );
+    console.log('Creating envelope.');
+    // If envelope does not exist, create it.
+    envSummary = await envelopesApi.createEnvelope(
+      accountId,
+      {
+        envelopeDefinition: envelope,
+      },
+    );
 
-      if (results.envelopeId) {
-        await setEnvelopeId(projId, results.envelopeId);
-      }
+    console.log('Envelope created.');
+
+
+    if (envSummary.envelopeId && envelope.documents?.length) {
+      console.log(`Updating project. ${projId}`);
+      const {envelopeId, status} = envSummary;
+      await updateProject({
+        envelopeId: envelopeId,
+        envelopeStatus: status ?? 'sent',
+        event: 'envelope-sent',
+        documents: envelope.documents?.map(({documentBase64, name}) => {
+          return {
+            fileBase64: documentBase64 || '',
+            filename: name || '',
+          };
+        }),
+        recipients: [],
+        projId: projId,
+      });
+      console.log(`Done updating project. ${projId}`);
+      envDocFileKeys = envelope.documents?.map((d) => d.documentBase64 ?? '') ?? [];
     }
 
 
     return {
-      ...results,
+      envelopeSummary: envSummary,
+      documents: envDocFileKeys,
       accountId,
     };
   } catch (err: any) {
-    return {error: err.message};
+    return {
+      accountId,
+      error: err.message,
+    };
   }
 };

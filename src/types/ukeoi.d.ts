@@ -9,6 +9,7 @@ type TUkeoiFields = {
   repName: string, // 担当者名
   repEmail: string, // 担当者メール
   envelopeId?: string,
+  envelopeStatus?:string,
   contractDate?: string // 契約日
   startDate?: string // 着手
   finishDate?: string // 完成

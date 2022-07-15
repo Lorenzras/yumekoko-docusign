@@ -6,11 +6,11 @@ export const voidEnvelope = async (envelopeId: string) => {
     $id,
     voidedEnvelopes,
   } = await getProjByEnvelope(envelopeId);
-
+  console.log(`Voiding envelope id: ${envelopeId}`);
 
   const record : Partial<ConstructionDetails.SavedData> = {
     envelopeId: {value: ''},
-    documents: {value: []} as any, // Remove attached files
+    envDocFileKeys: {value: []} as any, // Remove attached files
     envelopeStatus: {value: ''},
     voidedEnvelopes: {value: [
       ...(voidedEnvelopes.value.split(',')),

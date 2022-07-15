@@ -8,8 +8,6 @@ export const getProjByEnvelope = async (envelopeId: string) => {
     fields: ['$id', 'voidedEnvelopes'] as KeyOfConstructionDetails[],
   });
 
-  console.log('Records', records);
-
   if (!records.length) throw new Error('Envelope not linked to kintone.');
 
   const record = records[0] as unknown as ConstructionDetails.SavedData;

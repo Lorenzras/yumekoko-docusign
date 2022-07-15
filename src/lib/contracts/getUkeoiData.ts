@@ -2,6 +2,12 @@
 import {getProjectDetails} from '../../api/kintone';
 import {getCustomerGroup} from '../../api/kintone/getCustomerGroup';
 
+/**
+ * This combine and normalize data related to the project Id
+ *
+ * @param projId
+ * @returns {TUkeoiFields} The normalized data.
+ */
 export const getUkeoiData = async (projId: string) => {
   const {
     custGroupId,
@@ -9,7 +15,7 @@ export const getUkeoiData = async (projId: string) => {
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
-    dsEnvIdUkeoi,
+    envelopeId, envelopeStatus,
   } = await getProjectDetails(projId);
 
   const custGrpDetails = await getCustomerGroup(
@@ -35,7 +41,8 @@ export const getUkeoiData = async (projId: string) => {
     projLocation: `〒${projPostal.value} ${projAddress1.value}${projAddress2.value}`,
     repEmail: 'cocosumo.rpa03@gmail.com',
     repName: '高橋　加奈',
-    envelopeId: dsEnvIdUkeoi.value,
+    envelopeId: envelopeId.value,
+    envelopeStatus: envelopeStatus.value,
   };
 
   return projData;

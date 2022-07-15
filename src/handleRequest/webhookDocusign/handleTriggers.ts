@@ -28,6 +28,7 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
     } = payload;
 
     let message = 'Handled by the server.';
+    console.log('Incoming event ' + event);
 
     switch (event) {
       case 'envelope-voided':
@@ -43,7 +44,7 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
     }
 
 
-    console.log(event, data.envelopeId, data.envelopeSummary.recipients);
+    // console.log(event, data.envelopeId, data.envelopeSummary.recipients);
     res.status(200).send(message);
   } catch (err: any) {
     // Docusign connect must always received 200 success

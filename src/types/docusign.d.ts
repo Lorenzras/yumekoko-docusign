@@ -94,6 +94,9 @@ interface IRecipient {
   recipientType: string
 }
 
+/**
+ * Webhook event
+ */
 interface IConnectEvent {
   event: TConnectEventType,
   uri: string,
@@ -141,4 +144,11 @@ interface IConnectEvent {
       ]
     }
   }
+}
+
+interface ISendEnvelopeResponse {
+  /** base64 files */
+  documents: string[],
+  envelopeStatus: string,
+  envelopeId: string,
 }

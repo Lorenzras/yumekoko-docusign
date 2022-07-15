@@ -25,18 +25,17 @@ export const previewUkeoiEnvelope: RequestHandler = async (req, res) => {
   console.log(`Received project id ${projId} ${req.get('origin')}`);
   if (projId) {
     let result: ArrayBuffer;
-    const envelope = await processUkeoi(projId, 'created');
-    console.log(envelope);
-    if ('error' in envelope) {
-      res.status(400).send(envelope.error);
-    } else {
-      const {accountId, envelopeId, status} = envelope;
+    const ukeoi = await processUkeoi(projId, 'created');
+    const {accountId, envelopeSummary} = ukeoi;
+    if (('error' in ukeoi)) {
+      res.status(400).send(ukeoi.error);
+    } else if (envelopeSummary) {
+      const {envelopeId, status} =envelopeSummary;
       const envAPI = new EnvelopesApi(apiClient);
 
       if (envelopeId) {
         console.log(`Getting document page image ${status} ${accountId}`);
         result = await envAPI.getDocumentPageImage(accountId, envelopeId, '1', '1' ) as unknown as ArrayBuffer;
-
 
         res.status(200).send({
           imgB64: arrayToBase64(result),

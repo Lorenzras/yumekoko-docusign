@@ -25,7 +25,7 @@ declare namespace ConstructionDetails {
     status: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
 
-    documents: kintone.fieldTypes.File;
+    envDocFileKeys: kintone.fieldTypes.File;
     agents: {
       type: 'SUBTABLE';
       value: Array<{
