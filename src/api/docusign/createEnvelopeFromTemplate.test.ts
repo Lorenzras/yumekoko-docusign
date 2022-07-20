@@ -1,10 +1,7 @@
 import {templateIds} from './../../config/envelopeTemplates';
+import {getAccountId} from './authentication';
 
-import {basePath} from '../../config';
-import {getJwtGrantToken} from '../authentication/fetchAccessToken';
-import {getAccountId} from '../authentication/fetchUserInfo';
-import {createEnvelopeFromFile} from './createEnvelopeFromFile';
-import path from 'path';
+
 import {createEnvelopeFromTemplate} from './createEnvelopeFromTemplate';
 
 describe('Create Envelope', ()=>{

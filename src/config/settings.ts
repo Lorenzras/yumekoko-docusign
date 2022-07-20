@@ -37,5 +37,7 @@ export const apiClient = new ds.ApiClient({
 
 });
 
+export const getEnvelopesApi = () => new docusign.EnvelopesApi(apiClient);
+
 console.log('Integrator key ' + integratorKey);
 

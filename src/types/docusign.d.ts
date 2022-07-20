@@ -6,6 +6,9 @@
  *
  */
 
+
+ type TEnvelopeStatus = 'sent' | 'completed' | 'delivered' | 'voided' | '';
+
 type TEnvelope = {
   signerEmail : string,
   signerName: string,
@@ -149,6 +152,20 @@ interface IConnectEvent {
 interface ISendEnvelopeResponse {
   /** base64 files */
   documents: string[],
-  envelopeStatus: string,
+  envelopeStatus: TEnvelopeStatus,
   envelopeId: string,
 }
+
+
+interface IVoidReq {
+  envelopeId: string,
+  voidedReason: string
+}
+
+interface IVoidRes
+{
+  voidSuccess: boolean,
+  envelopeStatus: TEnvelopeStatus,
+  envelopSummary: EnvelopeUpdateSummary,
+}
+

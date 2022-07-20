@@ -13,7 +13,7 @@ declare namespace CustomerTypes {
     nationality: kintone.fieldTypes.SingleLineText;
     birthYear: kintone.fieldTypes.Number;
     contacts: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {

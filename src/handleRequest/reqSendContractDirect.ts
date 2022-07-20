@@ -24,7 +24,7 @@ export const reqSendContractDirect: RequestHandler = async (req, res) => {
       const sendResp : ISendEnvelopeResponse = {
         documents: documents ?? [],
         envelopeId,
-        envelopeStatus: status,
+        envelopeStatus: status as TEnvelopeStatus,
       };
 
       if (status) {
