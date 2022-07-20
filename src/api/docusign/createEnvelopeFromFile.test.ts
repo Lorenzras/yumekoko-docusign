@@ -1,7 +1,6 @@
 
 import {basePath} from '../../config';
-import {getJwtGrantToken} from '../authentication/fetchAccessToken';
-import {getAccountId} from '../authentication/fetchUserInfo';
+import {getJwtGrantToken, getAccountId} from './authentication/';
 import {createEnvelopeFromFile} from './createEnvelopeFromFile';
 import path from 'path';
 

@@ -1,4 +1,5 @@
-import {apiClient} from '../../config';
+
+import {apiClient} from '../../../config';
 import {getJwtGrantToken} from './fetchAccessToken';
 
 let userInfo: IGetUserInfoResponse | undefined;

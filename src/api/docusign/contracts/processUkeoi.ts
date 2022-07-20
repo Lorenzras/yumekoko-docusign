@@ -2,16 +2,15 @@
 /* eslint-disable max-len */
 import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
 import {getAccountId} from '../authentication/fetchUserInfo';
-import {apiClient} from '../../config';
+
 import {makeUkeoiEnvelope} from './makeUkeoiEnvelope';
 import {getUkeoiData} from './getUkeoiData';
-import {getEnvelope} from '../../api/docusign/getEnvelope';
-import {updateDocuments} from '../../api/docusign/updateDocuments';
-import {updateProject} from '../../api/kintone/updateProject';
+import {apiClient} from '../../../config';
+import {updateProject} from '../../kintone/updateProject';
 
 
 /**
- * Creates or updates envelope of the defined project Id
+ * Creates or Send envelope of the defined project Id
  *
  * @param projId The project where to base envelope's update and create methods
  * @param status https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/
@@ -35,6 +34,7 @@ export const processUkeoi = async (
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];
 
+    console.log(data);
     if (data.envelopeId) throw new Error(`Envelope already exist. ${data.envelopeId}`);
 
     console.log('Creating envelope.');
@@ -47,7 +47,6 @@ export const processUkeoi = async (
     );
 
     console.log('Envelope created.');
-
 
     if (envSummary.envelopeId && envelope.documents?.length) {
       console.log(`Updating project. ${projId}`);

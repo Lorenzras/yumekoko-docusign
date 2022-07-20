@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
-import {getProjectDetails} from '../../api/kintone';
-import {getCustomerGroup} from '../../api/kintone/getCustomerGroup';
+
+import {getProjectDetails} from '../../kintone';
+import {getCustomerGroup} from '../../kintone/getCustomerGroup';
+
 
 /**
  * This combine and normalize data related to the project Id

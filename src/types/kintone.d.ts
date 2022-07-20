@@ -1,4 +1,4 @@
-type TProjIdReq = {
+type TProjReq = {
   projId?: string,
   envelopeId?: string,
   origin?: string

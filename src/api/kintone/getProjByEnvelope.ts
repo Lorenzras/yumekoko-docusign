@@ -1,5 +1,5 @@
 import {KintoneRecord, APPIDS} from '.';
-import {getKeyConstn} from '../../lib/getKey/getKeyConstruction';
+import {getKeyConstn} from './getKeyConstruction';
 
 export const getProjByEnvelope = async (envelopeId: string) => {
   const {records} = await KintoneRecord.getRecords({

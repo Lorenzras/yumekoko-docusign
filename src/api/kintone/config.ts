@@ -10,6 +10,8 @@ const options = {
   },
 };
 
+console.log(process.env.node_env);
+
 export enum APPIDS {
   customers = 173,
   stores = 19,

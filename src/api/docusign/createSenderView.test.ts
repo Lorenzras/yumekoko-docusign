@@ -1,10 +1,19 @@
+import {processUkeoi} from '../../lib/contracts/processUkeoi';
 import {createSenderView} from './createSenderView';
 
 
 describe('createSenderView', () => {
   it('should give url for the sender', async () => {
-    const r = await createSenderView('881f9f2f-c540-4bc9-8e30-24a53dc6b6fa');
-    console.log(r?.url);
+    /*     const result = await processUkeoi('110', 'created');
+    const {
+      envelopeSummary = {},
+    } = result;
+    const {envelopeId} = envelopeSummary;
+
+    console.log('EnvelopeId', envelopeId); */
+
+    const r = await createSenderView('781cf273-e5a2-43b2-9d38-cd62ca89fd10');
+    // console.log(r?.url?.replace('send=1', 'send=0'));
     expect(r).toMatchSnapshot();
   }, 30000);
 });

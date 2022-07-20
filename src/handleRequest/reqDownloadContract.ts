@@ -1,12 +1,12 @@
 
 import {RequestHandler} from 'express';
 import {Xlsx} from 'exceljs';
-import {getUkeoiData} from '../lib/contracts/getUkeoiData';
-import {generateXlsxUkeoi} from '../lib/contracts/generateXlsxUkeoi';
-import {generatePdfUkeoi} from '../lib/contracts/generatePdfUkeoi';
+import {getUkeoiData} from '../api/docusign/contracts/getUkeoiData';
+import {generateXlsxUkeoi} from '../api/docusign/contracts/generateXlsxUkeoi';
+import {generatePdfUkeoi} from '../api/docusign/contracts/generatePdfUkeoi';
 
 
-export const downloadUkeoi: RequestHandler = async (req, res) => {
+export const reqDownloadContract: RequestHandler = async (req, res) => {
   const {
     projId,
     fileType,

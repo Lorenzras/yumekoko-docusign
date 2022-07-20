@@ -1,10 +1,13 @@
 
 import {Router as router} from 'express';
 import bodyParser from 'body-parser';
-import {sendUkeoiReq, sendUkeoiReqDirect} from '../handleRequest/sendUkeoiReq';
-import {downloadUkeoi} from '../handleRequest/downloadUkeoi';
+import {
+  reqSendContractDirect} from '../handleRequest/reqSendContractDirect';
+import {reqDownloadContract} from '../handleRequest/reqDownloadContract';
 import {previewUkeoiEnvelope} from '../handleRequest/previewUkeoiEnvelope';
 import {handleTriggers} from '../handleRequest/webhookDocusign/handleTriggers';
+import {voidEnvelopeReq} from '../handleRequest/voidEnvelopeReq';
+import {reqGetSenderView} from '../handleRequest/reqGetSenderView';
 
 
 const route = router();
@@ -13,12 +16,16 @@ route.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 
 
 route.post('/webhook', handleTriggers );
-route.post('/ukeoi/preview', previewUkeoiEnvelope);
-route.get('/ukeoi/download', downloadUkeoi);
 
-route.post('/ukeoi/send/direct', sendUkeoiReqDirect);
-route.post('/ukeoi/send', sendUkeoiReq);
+route.post('/contract/preview', previewUkeoiEnvelope);
 
+route.post('/contract/void', voidEnvelopeReq);
+
+route.post('/contract/send/direct', reqSendContractDirect);
+
+route.post('/contract/senderViewUrl', reqGetSenderView);
+
+route.get('/contract/download', reqDownloadContract);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is succes');

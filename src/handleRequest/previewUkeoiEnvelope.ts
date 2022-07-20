@@ -2,11 +2,10 @@ import {EnvelopesApi} from 'docusign-esign';
 
 /* eslint-disable max-len */
 import {RequestHandler} from 'express';
-import {processUkeoi} from '../lib/contracts/processUkeoi';
+import {processUkeoi} from '../api/docusign/contracts/processUkeoi';
 import {apiClient} from '../config';
 import {arrayToBase64} from '../utils/arrayToBase64';
-import {docusignLocale} from '../lib/locale/docusign';
-import {createSenderView} from '../api/docusign/createSenderView';
+import {docusignLocale} from '../api/docusign/locale/docusign';
 
 type TPreviewResp = {
   imgB64: string,
@@ -15,7 +14,8 @@ type TPreviewResp = {
 }
 
 /**
- * Sends Image preview to the client.
+ * Genearate image via docusign api then
+ * sends to the client.
  *
  * @param req
  * @param res

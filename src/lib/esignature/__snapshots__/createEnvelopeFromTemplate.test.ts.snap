@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Create Envelope should create envelope then send 1`] = `
-Object {
-  "envelopeId": "2ef1206a-b5aa-44c6-b6d2-55262057e043",
-}
-`;

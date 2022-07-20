@@ -1,6 +1,13 @@
 import {APPIDS, KintoneRecord} from '../../api/kintone';
 import {getProjByEnvelope} from '../../api/kintone/getProjByEnvelope';
 
+/**
+ * Webhook event that is triggered when
+ * enveloped is voided
+ *
+ * @param envelopeId
+ * @returns {Object} request result
+ */
 export const voidEnvelope = async (envelopeId: string) => {
   const {
     $id,
