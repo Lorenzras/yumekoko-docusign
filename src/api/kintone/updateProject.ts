@@ -1,5 +1,6 @@
 import {APPIDS, KintoneRecord} from '.';
 import {getProjByEnvelope} from './getProjByEnvelope';
+import {updateCustGroupLinkedProjects} from './updateCustGroupLinkedProjects';
 import {uploadFile} from './uploadFile';
 
 
@@ -10,7 +11,9 @@ export const updateProject = async ( {
   event,
   recipients,
   projId,
+  custGroupId,
 } : {
+  custGroupId?: string,
   projId?: string,
   envelopeId: string,
   documents: {
@@ -21,16 +24,19 @@ export const updateProject = async ( {
   event: TConnectEventType,
   recipients: IRecipient[]
 }) => {
-  // Search the id by envelope id,
-
   let recordId = projId;
+  let _custGroupId = custGroupId;
 
+  // Search the id by envelope id,
   if (!recordId) {
     const {
-      $id,
+      $id, custGroupId: cgId,
     } = await getProjByEnvelope(envelopeId);
     recordId = $id.value;
+    _custGroupId = cgId.value; // update custGroupId if necessary
   }
+
+  if (!_custGroupId) throw new Error('Invalid custGroupId.');
 
 
   // Upload the file
@@ -45,9 +51,7 @@ export const updateProject = async ( {
       }
   }
 
-
-  console.log('Filekeys ' + fileKeys);
-  // update record and attach the file
+  // Generate updated record and attach the file
   const record : Partial<ConstructionDetails.SavedData> = {
 
     envelopeId: {
@@ -78,13 +82,19 @@ export const updateProject = async ( {
 
   };
 
-  console.log(record);
 
+  // Save updated record
   const result = await KintoneRecord.updateRecord({
     app: APPIDS.constructionDetails,
     id: recordId,
     record,
   });
+
+  // Also update cust group
+  if (_custGroupId) {
+    await updateCustGroupLinkedProjects(_custGroupId);
+  }
+
 
   console.log('Succesfully update', result);
   return result;

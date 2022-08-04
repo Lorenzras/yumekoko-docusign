@@ -9,7 +9,7 @@ const dummy : TUkeoiFields = {
   projName: 'ラス　練習　工事',
   custAddress: '愛知県豊橋市野依町字山中19－16レジデンスなかま612号室',
   projLocation: '愛知県豊橋市野依町字山中19－16レジデンスなかま111号',
-  repName: '高橋　加奈',
+  repName: 'RPA03 cocosumo',
   repEmail: 'cocosumo.rpa03@gmail.com',
 };
 

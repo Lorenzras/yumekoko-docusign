@@ -25,14 +25,14 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "importHelpers": true,
   },
- // "files": [
- //   "./node_modules/@kintone/dts-gen/kintone.d.ts"
- // ],
+  //"files": [
+  //  "./node_modules/@types/docusign-esign/index.d.ts"
+  //],
   "include": [
     "src/**/*",
     "./node_modules/@types/docusign-esign/index.d.ts",
     "./node_modules/@kintone/dts-gen/kintone.d.ts"
     //"/src/types/longtermCust.d.ts",
-    //"./node_modules/@kintone/dts-gen/kintone.d.ts"
+
   ],
 }

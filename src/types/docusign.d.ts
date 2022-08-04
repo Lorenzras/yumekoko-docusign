@@ -7,7 +7,13 @@
  */
 
 
- type TEnvelopeStatus = 'sent' | 'completed' | 'delivered' | 'voided' | '';
+type TEnvelopeStatus =
+| 'sent'
+| 'created'
+| 'completed'
+| 'delivered'
+| 'voided'
+| '' ;
 
 type TEnvelope = {
   signerEmail : string,
@@ -167,5 +173,13 @@ interface IVoidRes
   voidSuccess: boolean,
   envelopeStatus: TEnvelopeStatus,
   envelopSummary: EnvelopeUpdateSummary,
+  documents?: string[],
+  error?: string,
 }
+
+
+/* Utilities, this needs to be on a separate file. */
+type DeepPartial<T> = T extends object ? {
+  [P in keyof T]?: DeepPartial<T[P]>;
+} : T;
 

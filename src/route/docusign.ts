@@ -8,6 +8,7 @@ import {previewUkeoiEnvelope} from '../handleRequest/previewUkeoiEnvelope';
 import {handleTriggers} from '../handleRequest/webhookDocusign/handleTriggers';
 import {reqVoidEnvelope} from '../handleRequest/reqVoidEnvelope';
 import {reqGetSenderView} from '../handleRequest/reqGetSenderView';
+import {reqResendContract} from '../handleRequest/reqResendContract';
 
 
 const route = router();
@@ -22,6 +23,8 @@ route.post('/contract/preview', previewUkeoiEnvelope);
 route.post('/contract/void', reqVoidEnvelope);
 
 route.post('/contract/send/direct', reqSendContractDirect);
+
+route.post('/contract/resend', reqResendContract);
 
 route.post('/contract/senderViewUrl', reqGetSenderView);
 

@@ -25,7 +25,6 @@ export const getEnvelopDefinition = async (
 
   const {email} = JSON.parse(dump.value);
 
-  if (!email) throw new Error('Invalid email.');
 
   const dsCustAddress: Text = {
     tabLabel: 'custAddress',

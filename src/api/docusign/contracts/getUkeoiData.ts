@@ -32,7 +32,6 @@ export const getUkeoiData = async (projId: string) => {
 
   const {email} = JSON.parse(dump.value);
 
-  if (!email) throw new Error('Invalid email.');
 
   const projData : TUkeoiFields = {
     custEmail: email,
@@ -42,7 +41,7 @@ export const getUkeoiData = async (projId: string) => {
     custAddress: `〒${postal.value} ${address1.value}${address2.value}`,
     projLocation: `〒${projPostal.value} ${projAddress1.value}${projAddress2.value}`,
     repEmail: 'cocosumo.rpa03@gmail.com',
-    repName: '高橋　加奈',
+    repName: 'RPA03 cocosumo',
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value,
   };

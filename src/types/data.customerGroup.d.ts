@@ -7,7 +7,7 @@ declare namespace CustomerGroupTypes {
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -27,7 +27,7 @@ declare namespace CustomerGroupTypes {
       }>;
     };
     agents: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -38,7 +38,7 @@ declare namespace CustomerGroupTypes {
       }>;
     };
     members: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {

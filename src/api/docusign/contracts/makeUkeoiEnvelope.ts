@@ -82,6 +82,7 @@ export const makeUkeoiEnvelope = async (
   const {
     custEmail, custName,
     repName, repEmail,
+    projName,
   } = data;
 
   const documentBase64 = await generatePdfUkeoi(data, 'base64') as string;
@@ -119,7 +120,7 @@ export const makeUkeoiEnvelope = async (
   };
 
   const env: EnvelopeDefinition = {
-    emailSubject: '請負契約書です。サインをお願い致します。',
+    emailSubject: `【${projName}】サインをお願いします。`,
     documents: [
       {
         documentBase64: documentBase64,

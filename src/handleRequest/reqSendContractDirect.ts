@@ -8,34 +8,40 @@ import {processUkeoi} from '../api/docusign/contracts/processUkeoi';
  */
 export const reqSendContractDirect: RequestHandler = async (req, res) => {
   const body: TProjReq = req.body;
-  const projId = body.projId;
+  const {projId, custGroupId} = body;
+
+  console.log('Processing contract');
 
   try {
-    if (projId && typeof projId === 'string') {
-      const result = await processUkeoi(projId);
-      const {
-        documents,
-        envelopeSummary: {
-          status = '',
-          envelopeId = '',
-        } = {},
-      } = result;
+    if (!custGroupId) throw new Error('Server did not receive custGroupId');
+    if (!projId ) throw new Error('Server did not receive projId');
 
-      const sendResp : ISendEnvelopeResponse = {
-        documents: documents ?? [],
-        envelopeId,
-        envelopeStatus: status as TEnvelopeStatus,
-      };
+    const result = await processUkeoi(projId, custGroupId);
+    const {
+      documents,
+      envelopeSummary: {
+        status = '',
+        envelopeId = '',
+      } = {},
+    } = result;
 
-      if (status) {
-        res.status(200).json(sendResp);
-      } else {
-        throw new Error('Envelope creation failed');
-      }
+    console.log('Done processing contract creation.');
+
+    const sendResp : ISendEnvelopeResponse = {
+      documents: documents ?? [],
+      envelopeId,
+      envelopeStatus: status as TEnvelopeStatus,
+    };
+
+    if (status) {
+      res.status(200).json(sendResp);
     } else {
-      res.status(401).send('Bad Request');
+      throw new Error('Envelope creation failed');
     }
-  } catch (error: any) {
-    res.status(400).send(`Request failed. ${error.message}`);
+  } catch (err: any) {
+    res.status(400).send(
+      err?.response?.res?.text ?? {
+        message: err?.message,
+      });
   }
 };
