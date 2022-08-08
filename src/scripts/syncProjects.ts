@@ -1,41 +1,46 @@
 import {APPIDS, KintoneRecord} from '../api/kintone';
 
 export const syncProjects = async () => {
-  const custGroups = await KintoneRecord.getAllRecords({
-    app: APPIDS.custGroup,
-  }) as unknown as CustomerGroupTypes.SavedData[];
+  try {
+    const custGroups = await KintoneRecord.getAllRecords({
+      app: APPIDS.custGroup,
+    }) as unknown as CustomerGroupTypes.SavedData[];
 
-  const updatedCustGroup = custGroups
-    .map<{
-    id: string,
-    record: DeepPartial<CustomerGroupTypes.SavedData>
+    const updatedCustGroup = custGroups
+      .map<{
+      id: string,
+      record: DeepPartial<CustomerGroupTypes.SavedData>
 
-  }>(({projects, $id})=>{
-    return {
-      id: $id.value,
-      record: {
-        projects: {
-          value: projects.value.map(({value})=>{
-            const {constructionId} = value;
-            console.log('cc', constructionId.value);
-            return {
-              value: {
-                ...value,
-                constructionId: {value: constructionId.value},
-              },
-            };
-          }),
+    }>(({projects, $id})=>{
+      return {
+        id: $id.value,
+        record: {
+          projectCount: {value: `${projects.value.length ?? 0}`},
+          projects: {
+            value: projects.value.map(({value})=>{
+              const {constructionId} = value;
+
+              return {
+                value: {
+                  constructionId: {value: constructionId.value},
+                },
+              };
+            }),
+          },
         },
-      },
 
-    };
-  });
+      };
+    });
 
-  const updated = await KintoneRecord.updateAllRecords({
-    app: APPIDS.custGroup,
-    records: updatedCustGroup as any,
-  });
+    const updated = await KintoneRecord.updateAllRecords({
+      app: APPIDS.custGroup,
+      records: updatedCustGroup as any,
+    });
 
 
-  return updated;
+    return updated;
+  } catch (err: any) {
+    console.log(err);
+    throw new Error(err.message);
+  }
 };
