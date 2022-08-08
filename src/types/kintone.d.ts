@@ -5,4 +5,6 @@ type TProjReq = {
   origin?: string
 }
 
-type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
+type KeyOfProjDetails = keyof ProjectDetails.SavedData;
+
+

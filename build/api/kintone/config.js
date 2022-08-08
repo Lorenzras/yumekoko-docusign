@@ -19,7 +19,7 @@ var APPIDS;
     APPIDS[APPIDS["custGroup"] = 185] = "custGroup";
     APPIDS[APPIDS["custMemo"] = 181] = "custMemo";
     APPIDS[APPIDS["constructionType"] = 190] = "constructionType";
-    APPIDS[APPIDS["constructionDetails"] = 194] = "constructionDetails";
+    APPIDS[APPIDS["ProjectDetails"] = 194] = "ProjectDetails";
 })(APPIDS = exports.APPIDS || (exports.APPIDS = {}));
 exports.KintoneClient = new rest_api_client_1.KintoneRestAPIClient(options);
 exports.KintoneRecord = exports.KintoneClient.record;

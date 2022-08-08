@@ -8,7 +8,7 @@ const setEnvelopeId = (projId, envelopeId) => tslib_1.__awaiter(void 0, void 0, 
         dsEnvIdUkeoi: { value: envelopeId },
     };
     return yield config_1.KintoneRecord.updateRecord({
-        app: config_1.APPIDS.constructionDetails,
+        app: config_1.APPIDS.projectDetails,
         id: projId,
         record: record,
     });

@@ -52,7 +52,7 @@ export const updateProject = async ( {
   }
 
   // Generate updated record and attach the file
-  const record : Partial<ConstructionDetails.SavedData> = {
+  const record : Partial<ProjectDetails.SavedData> = {
 
     envelopeId: {
       value: envelopeId,
@@ -85,7 +85,7 @@ export const updateProject = async ( {
 
   // Save updated record
   const result = await KintoneRecord.updateRecord({
-    app: APPIDS.constructionDetails,
+    app: APPIDS.projectDetails,
     id: recordId,
     record,
   });

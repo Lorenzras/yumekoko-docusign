@@ -7,7 +7,7 @@ const getProjectDetails = (projId) => tslib_1.__awaiter(void 0, void 0, void 0, 
     if (!projId)
         throw new Error('Invalid ProjId');
     return yield config_1.KintoneRecord.getRecord({
-        app: config_1.APPIDS.constructionDetails,
+        app: config_1.APPIDS.projectDetails,
         id: projId,
     }).then((resp) => resp.record);
 });

@@ -1,4 +1,4 @@
-declare namespace ConstructionDetails {
+declare namespace ProjectDetails {
   interface Data {
     schedContractDate: kintone.fieldTypes.Date;
     constructionTypeId: kintone.fieldTypes.Number;
@@ -19,21 +19,45 @@ declare namespace ConstructionDetails {
     envelopeRecipients: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
+    store: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
+    signMethod: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;
+    custGroupAgents: {
+      type: 'SUBTABLE';
+      value: Array<{
+        id: string;
+        value: {
+          custAgentType: kintone.fieldTypes.SingleLineText;
+          custAgentName: kintone.fieldTypes.SingleLineText;
+          custAgentId: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
     agents: {
       type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
-          employeeName: kintone.fieldTypes.SingleLineText;
+          agentId: kintone.fieldTypes.Number;
           agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
+          agentName: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
+    custGroup: {
+      type: 'SUBTABLE';
+      value: Array<{
+        id: string;
+        value: {
+          custNameReading: kintone.fieldTypes.SingleLineText;
+          custId: kintone.fieldTypes.Number;
+          custName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

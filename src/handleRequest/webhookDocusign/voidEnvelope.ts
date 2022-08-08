@@ -21,7 +21,7 @@ export const voidEnvelope = async (envelopeId: string) => {
 
   // Other values are cleared at the frontend.
   // This might be faulty so I might have to rethink this flow.
-  const record : Partial<ConstructionDetails.SavedData> = {
+  const record : Partial<ProjectDetails.SavedData> = {
     // envelopeId: {value: ''},
     // envDocFileKeys: {value: []} as any, // Remove attached files
     // envelopeStatus: {value: ''},
@@ -32,7 +32,7 @@ export const voidEnvelope = async (envelopeId: string) => {
   };
 
   const result = await KintoneRecord.updateRecord({
-    app: APPIDS.constructionDetails,
+    app: APPIDS.projectDetails,
     id: $id.value,
     record: record,
   });

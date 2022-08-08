@@ -1,3 +1,3 @@
-export const getKeyConstn = (key : KeyOfConstructionDetails) => {
+export const getKeyConstn = (key : KeyOfProjDetails) => {
   return key;
 };

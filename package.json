@@ -11,7 +11,7 @@
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "cross-env NODE_ENV=prod rimraf ./build && tsc --project tsconfig.build.json",
     "start": "npm run build && node build/main.js",
-    "dtsgen:constDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ConstructionDetails -o src/types/data.constructionDetails.d.ts",
+    "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.projectDetails.d.ts",
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
     "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts"
   },

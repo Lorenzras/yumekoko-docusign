@@ -19,7 +19,7 @@ export enum APPIDS {
   custGroup = 185,
   custMemo = 181,
   constructionType = 190,
-  constructionDetails = 194,
+  projectDetails = 194,
 }
 
 

@@ -178,6 +178,9 @@ interface IVoidRes
 }
 
 
+type TSignMethod = 'electronic' | 'wetInk'
+
+
 /* Utilities, this needs to be on a separate file. */
 type DeepPartial<T> = T extends object ? {
   [P in keyof T]?: DeepPartial<T[P]>;

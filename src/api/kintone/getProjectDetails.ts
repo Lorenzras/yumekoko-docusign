@@ -4,7 +4,7 @@ export const getProjectDetails = async (projId: string) => {
   if (!projId) throw new Error('Invalid ProjId');
 
   return await KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
+    app: APPIDS.projectDetails,
     id: projId,
-  }).then((resp) => resp.record as unknown as ConstructionDetails.SavedData);
+  }).then((resp) => resp.record as unknown as ProjectDetails.SavedData);
 };
