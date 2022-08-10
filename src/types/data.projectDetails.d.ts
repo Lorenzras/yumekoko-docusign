@@ -17,9 +17,11 @@ declare namespace ProjectDetails {
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
     envelopeRecipients: kintone.fieldTypes.SingleLineText;
+    isDoneInputContract: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
+    contractPrice: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     signMethod: kintone.fieldTypes.SingleLineText;

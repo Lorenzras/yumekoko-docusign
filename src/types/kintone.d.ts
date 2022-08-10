@@ -6,5 +6,6 @@ type TProjReq = {
 }
 
 type KeyOfProjDetails = keyof ProjectDetails.SavedData;
+type KeyOfProjEstimates = keyof ProjectEstimates.SavedData;
 
 
