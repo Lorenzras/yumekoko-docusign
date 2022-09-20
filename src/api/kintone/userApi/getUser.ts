@@ -3,7 +3,7 @@ import {getUsers} from './getUsers';
 /* Wrapper functions */
 
 /**
- * Warning: Administrator account may not be supported ~ ras
+ * Warning: Administrator account code may not be supported ~ ras
  *
  */
 
