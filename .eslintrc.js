@@ -28,6 +28,9 @@ module.exports = {
       'error',
       2,
     ],
+    'max-len': ['error', {
+      'ignoreTemplateLiterals': true,
+    }],
     'valid-jsdoc': ['error', {
       'requireParamType': false,
       'requireParamDescription': false,
