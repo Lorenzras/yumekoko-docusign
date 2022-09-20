@@ -1,6 +1,6 @@
 import {APPIDS, KintoneRecord} from '../api/kintone';
 
-export const syncProjects = async () => {
+export const syncProjectsToCustGroup = async () => {
   try {
     const custGroups = await KintoneRecord.getAllRecords({
       app: APPIDS.custGroup,
@@ -15,6 +15,7 @@ export const syncProjects = async () => {
       return {
         id: $id.value,
         record: {
+
           projectCount: {value: `${projects.value.length ?? 0}`},
           projects: {
             value: projects.value.map(({value})=>{

@@ -1,8 +1,8 @@
-import {syncProjects} from './syncProjects';
+import {syncProjectsToCustGroup} from './syncProjectsToCustGroup';
 
 describe('syncProjects', ()=>{
   it('should update projects', async ()=>{
-    const result = await syncProjects();
+    const result = await syncProjectsToCustGroup();
 
     expect(result).toMatchSnapshot();
   }, 8000);
