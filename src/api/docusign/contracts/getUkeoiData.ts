@@ -9,6 +9,7 @@ import {getCustomerGroup} from '../../kintone/getCustomerGroup';
  *
  * @param projId
  * @returns {TUkeoiFields} The normalized data.
+ * @deprecated In favor of getContract
  */
 export const getUkeoiData = async (projId: string) => {
   const {

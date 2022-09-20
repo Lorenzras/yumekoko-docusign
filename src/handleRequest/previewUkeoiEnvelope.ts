@@ -19,10 +19,12 @@ type TPreviewResp = {
  *
  * @param req
  * @param res
+ * @deprecated replaced by downloadContract
  */
 export const previewUkeoiEnvelope: RequestHandler = async (req, res) => {
-  const {projId} = req.body as Record<string, string>;
+  const {projId} = req.body as TReqPreviewParams;
   console.log(`Received project id ${projId} ${req.get('origin')}`);
+
   if (projId) {
     let result: ArrayBuffer;
     const ukeoi = await processUkeoi(projId, 'created');

@@ -4,8 +4,10 @@ const options = {
   baseUrl: process.env.KT_BASE_URL,
   auth: {
     apiToken: [
-      process.env.KT_CUSTGROUP_TOKEN,
-      process.env.KT_PROJECT_TOKEN,
+      process.env.KT_CUSTGROUPS,
+      process.env.KT_PROJECTS,
+      process.env.KT_PROJECT_ESTIMATES,
+      process.env.KT_CUSTOMERS,
     ],
   },
 };
@@ -20,6 +22,8 @@ export enum APPIDS {
   custMemo = 181,
   constructionType = 190,
   projectDetails = 194,
+  projEstimate = 202
+
 }
 
 

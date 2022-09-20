@@ -1,4 +1,4 @@
-declare namespace CustomerTypes {
+declare namespace Customers {
   interface Data {
     birthDay: kintone.fieldTypes.Number;
     gender: kintone.fieldTypes.DropDown;

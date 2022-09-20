@@ -9,10 +9,9 @@ import {generatePdfUkeoi} from '../api/docusign/contracts/generatePdfUkeoi';
 export const reqDownloadContract: RequestHandler = async (req, res) => {
   const {
     projId,
+    projEstimateId,
     fileType,
-  } = req.query as Record<string, string>;
-
-  console.log('Received project id', projId);
+  } = req.query as TReqDownloadParams;
 
   let file;
 
