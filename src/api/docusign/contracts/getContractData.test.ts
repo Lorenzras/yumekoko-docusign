@@ -1,10 +1,10 @@
-import {getContractData} from './getContractData';
+import {getContractData} from '../../kintone/getContractData';
 
 describe('Contract', () => {
   it('should be able to get contract data', async () => {
     const result = await getContractData({
       projEstimateId: '25',
-      useCode: 'RPA03',
+      userCode: 'RPA03',
     });
 
     expect(result).toMatchSnapshot();
