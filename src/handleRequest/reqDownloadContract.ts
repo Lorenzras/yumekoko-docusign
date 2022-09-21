@@ -8,19 +8,22 @@ import {
 
 
 export const reqDownloadContract: RequestHandler = async (req, res) => {
-  const {
-    projEstimateId,
-    userCode,
-    fileType,
-  } = req.query as TReqDownloadParams;
+  try {
+    const {
+      projEstimateId,
+      userCode = 'RPA03',
+      fileType,
+    } = req.query as TReqDownloadParams;
+    console.log(req.query);
+    let file;
 
-  let file;
+    if (!projEstimateId) throw new Error('projEstimateId not defined');
 
-  if (projEstimateId) {
     const contractData = await getContractData({
       projEstimateId,
       userCode: userCode,
     });
+
     const {projName, envelopeStatus} = contractData;
     switch (fileType) {
       case 'xlsx':
@@ -40,7 +43,7 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         });
     }
     res.end();
-  } else {
-    res.status(501).send('Invalid project id.').end();
+  } catch (e: any) {
+    res.status(501).send(`エラーが発生しました。管理者をご連絡ください。${e.message}`);
   }
 };

@@ -16,7 +16,6 @@ type TReqPreviewParams = {
 }
 
 type TReqDownloadParams = {
-  projId: string,
   fileType: string
   userCode: string,
   projEstimateId: string,

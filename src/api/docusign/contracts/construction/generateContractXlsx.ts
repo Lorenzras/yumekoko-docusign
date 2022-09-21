@@ -1,7 +1,7 @@
 import {getContractData} from '../../../kintone/getContractData';
 import path from 'path';
 import {assetsDir} from '../config/file';
-import excel, {Xlsx} from 'exceljs';
+import excel from 'exceljs';
 
 /**
  * Generate Contract in excel
@@ -10,7 +10,7 @@ import excel, {Xlsx} from 'exceljs';
  * @param outputType 'buffer' | 'b64' | 'xlsx'
  * @returns {Buffer} for efficiency
  * @returns {string} B64 - Widely supported. (Kintone only supports this)
- * @returns {Xlsx} exeljs object, good if further manipulation is required
+ * @returns {excel.Xlsx} exeljs object, good if further manipulation is required
  */
 export const generateContractXlsx = async (
   contractData : Awaited<ReturnType<typeof getContractData>>,
