@@ -1,3 +1,7 @@
+
+/**
+ * @deprecated Will just infer callback's return type ~ras
+ *  */
 type TUkeoiFields = {
   custEmail: string, // 発注者メール
   custName: string, // 発注者
