@@ -1,11 +1,26 @@
 import {getContractData} from '../../../kintone/getContractData';
 import path from 'path';
 import {assetsDir} from '../config/file';
-import excel from 'exceljs';
+import excel, {Xlsx} from 'exceljs';
 
+/**
+ * Generate Contract in excel
+ *
+ * @param contractData Derived from getContractData
+ * @param outputType 'buffer' | 'b64' | 'xlsx'
+ * @returns {Buffer} for efficiency
+ * @returns {string} B64 - Widely supported. (Kintone only supports this)
+ * @returns {Xlsx} exeljs object, good if further manipulation is required
+ */
 export const generateContractXlsx = async (
   contractData : Awaited<ReturnType<typeof getContractData>>,
+  outputType: 'buffer' | 'b64' | 'xlsx' = 'xlsx',
 ) => {
+  const {
+    projId, projLocation, projName,
+    custName, custAddress,
+    officerName,
+  } = contractData;
   const ukeoiFile = path.join(assetsDir, '請負契約書.xlsx' );
 
   // Read excel file.
@@ -31,7 +46,7 @@ export const generateContractXlsx = async (
   ws.getCell('K40').value = custAddress;
 
   // 担当者名
-  ws.getCell('K46').value = repName;
+  ws.getCell('K46').value = officerName;
 
 
   switch (outputType) {

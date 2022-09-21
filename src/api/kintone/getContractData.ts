@@ -16,6 +16,7 @@ export const getContractData = async ({
   const {
     projId,
     contractPrice,
+    envStatus,
   } = await getEstimateById(projEstimateId);
 
   /* 工事情報 */
@@ -59,6 +60,7 @@ export const getContractData = async ({
   const accountingName = 'Temporary keiri';
   const accountingEmail = 'info@cocosumo.co.jp';
 
+
   return {
 
     /* 工事 */
@@ -86,6 +88,10 @@ export const getContractData = async ({
     /* 経理 */
     accountingName: accountingName,
     accountineEmail: accountingEmail,
+
+    /* 契約関連 */
+    envelopeStatus: envStatus.value,
+
 
   };
 };
