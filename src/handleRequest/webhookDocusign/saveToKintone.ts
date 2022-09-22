@@ -1,4 +1,5 @@
 
+import {updateEstimateEnvelope} from '../../api/kintone/updateEstimateEnvelope';
 import {updateProject} from '../../api/kintone/updateProject';
 
 
@@ -35,7 +36,7 @@ export const saveToKintone = async (payload: IConnectEvent) => {
   console.log(`Saving envelope id: ${envelopeId}`);
 
 
-  return await updateProject({
+  return await updateEstimateEnvelope({
     envelopeId,
     envelopeStatus: status,
     documents,

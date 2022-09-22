@@ -3,7 +3,13 @@ import {getProjByEnvelope} from './getProjByEnvelope';
 import {updateCustGroupLinkedProjects} from './updateCustGroupLinkedProjects';
 import {uploadFile} from './uploadFile';
 
-
+/**
+ * Updates project
+ *
+ * @param param0
+ * @returns {object} s
+ * @deprecated use updateEstimateEnvelope instead
+ */
 export const updateProject = async ( {
   envelopeId,
   documents,
