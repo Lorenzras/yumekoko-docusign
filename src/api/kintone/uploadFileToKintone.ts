@@ -1,14 +1,7 @@
 import {KintoneClient} from './config';
 
 
-/**
- *
- * @param documents
- * @returns
- * @deprecated renamed uploadFileToKintone
- */
-
-export const uploadFile = async (documents :
+export const uploadFileToKintone = async (documents :
 {
   fileBase64: string,
   filename: string,

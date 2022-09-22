@@ -1,39 +1,24 @@
-
-/* eslint-disable max-len */
 import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
-import {getAccountId} from '../authentication/fetchUserInfo';
+import {apiClient} from '../../../../config';
+import {getContractData} from '../../../kintone/getContractData';
+import {updateEstimateEnvelope} from '../../../kintone/updateEstimateEnvelope';
+import {getAccountId} from '../../authentication';
+import {makeEnvelope} from './makeEnvelope';
 
-import {makeUkeoiEnvelope} from './makeUkeoiEnvelope';
-import {getUkeoiData} from './getUkeoiData';
-import {apiClient} from '../../../config';
-import {updateProject} from '../../kintone/updateProject';
-
-
-/**
- * Creates or Send envelope of the defined project Id
- *
- * @param projId The project where to base envelope's update and create methods
- * @param custGroupId the link customer projectId,
- * @param status https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/
- * @returns {EnvelopeSummary} Envelope summary and account id.
- * @deprecated Will use processContract instead.
- */
-export const processUkeoi = async (
-  projId: string,
-  custGroupId: string,
+export const processContract = async (
+  params: {
+    projEstimateId: string,
+    userCode: string
+  },
   status: 'created' | 'sent' = 'sent',
-) : Promise<{
-  envelopeSummary?: EnvelopeSummary,
-  documents?: string[],
-  accountId: string,
-  error?: string
-}> => {
-  let accountId = '';
+) => {
   try {
-    accountId = await getAccountId();
-    const data = await getUkeoiData(projId);
+    const accountId = await getAccountId();
+
+    const data = await getContractData(params);
     const envelopesApi = new EnvelopesApi(apiClient);
-    const envelope = await makeUkeoiEnvelope(data, status);
+
+    const envelope = await makeEnvelope(data, status);
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];
 
@@ -42,7 +27,6 @@ export const processUkeoi = async (
     if (!data.custEmail) throw new Error('顧客のメールアドレスは無効です。確認してください。');
 
     console.log('Creating envelope.');
-    // If envelope does not exist, create it.
     envSummary = await envelopesApi.createEnvelope(
       accountId,
       {
@@ -53,9 +37,9 @@ export const processUkeoi = async (
     console.log('Envelope created.');
 
     if (envSummary.envelopeId && envelope.documents?.length) {
-      console.log(`Updating project. ${projId}`);
+      console.log(`Updating projEstimateId. ${data.projEstimateId}`);
       const {envelopeId, status} = envSummary;
-      await updateProject({
+      await updateEstimateEnvelope({
         envelopeId: envelopeId,
         envelopeStatus: status ?? 'sent',
         event: 'envelope-sent',
@@ -66,11 +50,11 @@ export const processUkeoi = async (
           };
         }),
         recipients: [],
-        projId: projId,
-        custGroupId: custGroupId,
+        projEstimateId: data.projEstimateId,
       });
-      console.log(`Done updating project. ${projId}`);
-      envDocFileKeys = envelope.documents?.map((d) => d.documentBase64 ?? '') ?? [];
+      console.log(`Done updating midumori. ${data.projEstimateId}`);
+      envDocFileKeys = envelope
+        .documents?.map((d) => d.documentBase64 ?? '') ?? [];
     }
 
 

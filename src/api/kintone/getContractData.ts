@@ -17,6 +17,7 @@ export const getContractData = async ({
     projId,
     contractPrice,
     envStatus,
+    envId,
   } = await getEstimateById(projEstimateId);
 
   /* 工事情報 */
@@ -71,6 +72,7 @@ export const getContractData = async ({
 
     /* 契約 */
     contractPrice: contractPrice.value,
+    envelopeId: envId.value,
 
     /* 顧客 */
     custName: fullName.value,

@@ -75,6 +75,7 @@ export const generateUkeoiExcel = async (
  * @param data
  * @param status Status of created envelope
  * @returns {EnvelopeDefinition} the envelope object
+ * @deprecated Follow route, to know which is used.
  */
 export const makeUkeoiEnvelope = async (
   data :TUkeoiFields,

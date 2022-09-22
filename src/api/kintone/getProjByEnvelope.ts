@@ -1,6 +1,13 @@
 import {KintoneRecord, APPIDS} from '.';
 import {getKeyConstn} from './getKeyConstruction';
 
+/**
+ * Get project by envolope
+ *
+ * @param envelopeId
+ * @returns {object} Record data
+ * @deprecated envelopes are not managed in project anymore but in mitsumori
+ */
 export const getProjByEnvelope = async (envelopeId: string) => {
   const {records} = await KintoneRecord.getRecords({
     app: APPIDS.projectDetails,
