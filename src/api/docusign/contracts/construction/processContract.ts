@@ -2,7 +2,6 @@ import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
 import {apiClient} from '../../../../config';
 import {getContractData} from '../../../kintone/getContractData';
 import {updateEstimateEnvelope} from '../../../kintone/updateEstimateEnvelope';
-import {validateContractData} from '../../../kintone/validateContractData';
 import {getAccountId} from '../../authentication';
 import {makeEnvelope} from './makeEnvelope';
 
