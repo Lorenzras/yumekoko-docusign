@@ -14,7 +14,9 @@
     "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.projectDetails.d.ts",
     "dtsgen:projEstimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace ProjectEstimates -o src/types/data.projectEstimates.d.ts",
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
-    "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts"
+    "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts",
+    "dtsgen:employees": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 34 --type-name Data --namespace Employees -o src/types/data.employees.d.ts"
+
   },
   "keywords": [],
   "author": "",

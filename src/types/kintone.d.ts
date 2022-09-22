@@ -21,7 +21,10 @@ interface ReqSendContract {
   projEstimateId: string,
 }
 interface ReqDownloadParams extends ReqSendContract {
-  fileType: string,
+  fileType: 'pdf' | 'xlsx',
 }
+
+// This also exist at the frontend.
+type AgentType = 'cocoAG' | 'yumeAG' | 'cocoConst';
 
 

@@ -8,6 +8,7 @@ const options = {
       process.env.KT_PROJECTS,
       process.env.KT_PROJECT_ESTIMATES,
       process.env.KT_CUSTOMERS,
+      process.env.KT_EMPLOYEES,
     ],
   },
 };

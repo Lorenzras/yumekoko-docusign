@@ -1,7 +1,9 @@
 import {getProjectDetails} from '.';
 import {getCustomerById} from './getCustomerById';
 import {getCustomerGroup} from './getCustomerGroup';
+import {getEmployeesByIds} from './getEmployeesByIds';
 import {getEstimateById} from './getEstimateById';
+import {getStoreMngrByStoreId} from './getStoreMngrByStoreId';
 import {getUserByCode, getUserById} from './userApi';
 import {validateContractData} from './validateContractData';
 
@@ -17,13 +19,14 @@ export type TContractData = Awaited<ReturnType<typeof getContractData>>
  * @returns {TContractData} 契約に必要になるデータ
  */
 export const getContractData = async ({
-  projEstimateId, userCode,
+  projEstimateId,
 } : {
   projEstimateId: string,
   userCode: string,
 },
-isValidate = false) => {
-  if (!projEstimateId) throw new Error('Invalid projEstimateid');
+isValidate = false,
+) => {
+  if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 見積情報 */
   const {
@@ -42,7 +45,11 @@ isValidate = false) => {
   } = await getProjectDetails(projId.value);
 
   /* 顧客情報 */
-  const {members} = await getCustomerGroup(custGroupId.value);
+  const {
+    agents,
+    members,
+    storeId,
+  } = await getCustomerGroup(custGroupId.value);
   const firstCustomer = members.value[0];
   const {customerId} = firstCustomer.value;
   const {
@@ -53,21 +60,23 @@ isValidate = false) => {
     .find(({value: {contactType}}) => contactType.value === 'email')
     ?.value ?? {};
 
+
   /* 担当情報 */
-  const {
-    email: officerEmail,
-    name: officerName,
-    customItemValues,
-  } = await getUserByCode(userCode);
+  const cocoAgIds = agents.value
+    .filter(({value: {agentType}}) => (
+      (agentType.value as AgentType) === 'cocoAG'))
+    .map(({value: {employeeId}}) => employeeId.value );
+  const cocoAG = (await getEmployeesByIds(cocoAgIds))
+    .map(({文字列＿氏名: empName, email: empEmail}) => ({
+      name: empName.value,
+      email: empEmail.value,
+    }) );
 
   /* 店長 */
-  const {value: managerUserId} = customItemValues
-    .find(({code}) => code === 'manager_0001' ) ?? {};
-
   const {
+    文字列＿氏名: managerName,
     email: managerEmail,
-    name: managerName,
-  } = await getUserById(managerUserId || '');
+  } = await getStoreMngrByStoreId(storeId.value);
 
   /* 経理 */
   // どこから引っ張るかまだ分からないので、固定します。
@@ -92,16 +101,15 @@ isValidate = false) => {
     custEmail: email?.value,
 
     /* 担当者 */
-    officerName: officerName,
-    officerEmail: officerEmail,
+    cocoAG,
 
     /* 店長 */
-    storeMngrName: managerName,
-    storeMngrEmail: managerEmail,
+    storeMngrName: managerName.value,
+    storeMngrEmail: managerEmail.value,
 
     /* 経理 */
     accountingName: accountingName,
-    accountineEmail: accountingEmail,
+    accountingEmail: accountingEmail,
 
     /* 契約関連 */
     envelopeStatus: envStatus.value,

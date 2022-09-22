@@ -81,6 +81,7 @@ export const getUsers = async ({
       },
     });
 
+
     if (status === 200) {
       return data as IGetUsersResult;
     } else {

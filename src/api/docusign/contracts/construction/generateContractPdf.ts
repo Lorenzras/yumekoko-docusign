@@ -21,8 +21,13 @@ export const generateContractPdf = async (
 ) => {
   const {
     projId, projName, projLocation,
-    custName, custAddress, officerName,
+    custName, custAddress, cocoAG,
   } = contractData;
+
+  const {
+    name: officerName,
+  } = cocoAG?.[0] ?? {};
+
   const url = path.join(assetsDir, '請負契約書.pdf');
   const existingPdfBytes = await fs.readFile(url);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);

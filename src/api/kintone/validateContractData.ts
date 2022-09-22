@@ -3,14 +3,18 @@ import {TContractData} from './getContractData';
 
 export const validateContractData = (data: TContractData) => {
   const {
+    custName,
     custEmail,
-    officerEmail,
+    cocoAG,
+    storeMngrName,
     storeMngrEmail,
-    accountineEmail,
+
+    accountingName,
+    accountingEmail,
   } = data;
 
-  if (!custEmail) throw new Error('顧客メールは指定しいません。');
-  if (!officerEmail) throw new Error('担当メールは指定しいません。');
-  if (!storeMngrEmail) throw new Error('店長メールは指定しいません。');
-  if (!accountineEmail) throw new Error('経理メールは指定しいません。');
+  if (!custEmail) throw new Error(`顧客メールは指定しいません。${custName}`);
+  if (!cocoAG?.[0]?.email) throw new Error(`COCO担当メールは指定しいません。${cocoAG?.[0]?.name}`);
+  if (!storeMngrEmail) throw new Error(`店長メールは指定しいません。${storeMngrName}`);
+  if (!accountingEmail) throw new Error(`経理メールは指定しいません。${accountingName}`);
 };

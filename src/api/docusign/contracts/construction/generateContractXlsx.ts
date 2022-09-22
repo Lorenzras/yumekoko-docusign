@@ -19,8 +19,13 @@ export const generateContractXlsx = async (
   const {
     projId, projLocation, projName,
     custName, custAddress,
-    officerName,
+    cocoAG,
   } = contractData;
+
+  const {
+    name: officerName,
+  } = cocoAG?.[0] ?? {};
+
   const ukeoiFile = path.join(assetsDir, '請負契約書.xlsx' );
 
   // Read excel file.

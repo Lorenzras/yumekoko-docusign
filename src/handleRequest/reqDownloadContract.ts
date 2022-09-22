@@ -14,7 +14,7 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
       userCode = 'RPA03',
       fileType,
     } = req.query as ReqDownloadParams;
-
+    console.log('hello', req.query);
 
     let file;
 
@@ -35,6 +35,7 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         await file.write(res);
         break;
       case 'pdf':
+        console.log('Generating pdf');
         file = await generateContractPdf(contractData, 'base64');
 
         res.status(200).json({

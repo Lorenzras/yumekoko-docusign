@@ -46,6 +46,7 @@ export const reqSendContractDirect: RequestHandler = async (req, res) => {
       throw new Error('Envelope creation failed');
     }
   } catch (err: any) {
+    console.error(err?.message);
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,

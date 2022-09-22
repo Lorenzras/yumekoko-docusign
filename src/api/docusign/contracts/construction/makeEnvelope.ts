@@ -8,11 +8,14 @@ export const makeEnvelope = async (
   const {
     custEmail,
     custName,
-    officerEmail,
-    officerName,
-
+    cocoAG,
     projName,
   } = data;
+
+  const {
+    email: officerEmail,
+    name: officerName,
+  } = cocoAG?.[0] ?? {};
 
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
 
