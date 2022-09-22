@@ -1,7 +1,5 @@
 
 import {updateEstimateEnvelope} from '../../api/kintone/updateEstimateEnvelope';
-import {updateProject} from '../../api/kintone/updateProject';
-
 
 /**
  * Handle update kintone process
