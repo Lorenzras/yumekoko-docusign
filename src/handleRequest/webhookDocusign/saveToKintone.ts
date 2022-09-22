@@ -41,6 +41,4 @@ export const saveToKintone = async (payload: IConnectEvent) => {
     event,
     recipients,
   });
-
-  // await fs.writeFile(path.join(__dirname, 'test.pdf'), PDFBytes, 'base64');
 };
