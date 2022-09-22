@@ -9,7 +9,7 @@ import {
  * @param res
  */
 export const reqSendContractDirect: RequestHandler = async (req, res) => {
-  const body: TReqSendContract = req.body;
+  const body: ReqSendContract = req.body;
   const {projEstimateId, userCode} = body;
 
   console.log('Processing contract');

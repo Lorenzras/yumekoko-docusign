@@ -13,8 +13,9 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
       projEstimateId,
       userCode = 'RPA03',
       fileType,
-    } = req.query as TReqDownloadParams;
-    console.log(req.query);
+    } = req.query as ReqDownloadParams;
+
+
     let file;
 
     if (!projEstimateId) throw new Error('projEstimateId not defined');

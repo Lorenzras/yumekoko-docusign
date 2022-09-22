@@ -15,11 +15,13 @@ type TReqPreviewParams = {
   userCode: string,
 }
 
-type TReqDownloadParams = {
-  fileType: string
+interface ReqSendContract {
+  [k: string]: string,
   userCode: string,
   projEstimateId: string,
 }
+interface ReqDownloadParams extends ReqSendContract {
+  fileType: string,
+}
 
-type TReqSendContract = TReqDownloadParams
 
