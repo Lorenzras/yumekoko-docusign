@@ -45,7 +45,11 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         });
     }
     res.end();
-  } catch (e: any) {
-    res.status(501).send(`エラーが発生しました。管理者をご連絡ください。${e.message}`);
+  } catch (err: any) {
+    console.error(err?.message);
+    res.status(400).send(
+      err?.response?.res?.text ?? {
+        message: err?.message,
+      });
   }
 };
