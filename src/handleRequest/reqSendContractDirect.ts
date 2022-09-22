@@ -1,5 +1,7 @@
 import {RequestHandler} from 'express';
-import {processUkeoi} from '../api/docusign/contracts/processUkeoi';
+import {
+  processContract,
+} from '../api/docusign/contracts/construction/processContract';
 
 /**
  * Send contract directly without opening an intermediary link
@@ -7,16 +9,21 @@ import {processUkeoi} from '../api/docusign/contracts/processUkeoi';
  * @param res
  */
 export const reqSendContractDirect: RequestHandler = async (req, res) => {
-  const body: TProjReq = req.body;
-  const {projId, custGroupId} = body;
+  const body: TReqSendContract = req.body;
+  const {projEstimateId, userCode} = body;
 
   console.log('Processing contract');
 
   try {
-    if (!custGroupId) throw new Error('Server did not receive custGroupId');
-    if (!projId ) throw new Error('Server did not receive projId');
+    if (!projEstimateId) {
+      throw new Error('見積番号は存在していません。');
+    }
 
-    const result = await processUkeoi(projId, custGroupId);
+    if (!userCode ) {
+      throw new Error('ユーザは存在していません。');
+    }
+
+    const result = await processContract(body, 'sent');
     const {
       documents,
       envelopeSummary: {

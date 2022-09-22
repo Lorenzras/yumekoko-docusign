@@ -2,6 +2,7 @@ import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
 import {apiClient} from '../../../../config';
 import {getContractData} from '../../../kintone/getContractData';
 import {updateEstimateEnvelope} from '../../../kintone/updateEstimateEnvelope';
+import {validateContractData} from '../../../kintone/validateContractData';
 import {getAccountId} from '../../authentication';
 import {makeEnvelope} from './makeEnvelope';
 
@@ -15,7 +16,8 @@ export const processContract = async (
   try {
     const accountId = await getAccountId();
 
-    const data = await getContractData(params);
+    const data = await getContractData(params, true);
+
     const envelopesApi = new EnvelopesApi(apiClient);
 
     const envelope = await makeEnvelope(data, status);

@@ -21,3 +21,5 @@ type TReqDownloadParams = {
   projEstimateId: string,
 }
 
+type TReqSendContract = TReqDownloadParams
+

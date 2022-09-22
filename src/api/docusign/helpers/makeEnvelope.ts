@@ -8,7 +8,7 @@ import {
 } from 'docusign-esign';
 import fs from 'fs/promises';
 
-
+/* For reference purposes only. Ignore */
 export const makeEnvelope = async (args: {
   signerEmail: string,
   signerName: string,

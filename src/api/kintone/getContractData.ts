@@ -3,13 +3,26 @@ import {getCustomerById} from './getCustomerById';
 import {getCustomerGroup} from './getCustomerGroup';
 import {getEstimateById} from './getEstimateById';
 import {getUserByCode, getUserById} from './userApi';
+import {validateContractData} from './validateContractData';
 
+export type TContractData = Awaited<ReturnType<typeof getContractData>>
+
+/**
+ * Get Contract data across all involved database
+ *
+ * @param param
+ * @param param.projEstimateId 見積番号
+ * @param param.userCode Kintoneのユーザコード
+ * @param isValidate Whether to validate or not. Default: false
+ * @returns {TContractData} 契約に必要になるデータ
+ */
 export const getContractData = async ({
   projEstimateId, userCode,
 } : {
   projEstimateId: string,
   userCode: string,
-}) => {
+},
+isValidate = false) => {
   if (!projEstimateId) throw new Error('Invalid projEstimateid');
 
   /* 見積情報 */
@@ -61,8 +74,7 @@ export const getContractData = async ({
   const accountingName = 'Temporary keiri';
   const accountingEmail = 'info@cocosumo.co.jp';
 
-
-  return {
+  const data = {
 
     /* 工事 */
     projId: projId.value,
@@ -94,6 +106,9 @@ export const getContractData = async ({
     /* 契約関連 */
     envelopeStatus: envStatus.value,
 
-
   };
+
+  if (isValidate) validateContractData(data);
+
+  return data;
 };
