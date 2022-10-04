@@ -27,6 +27,7 @@ export const generateContractPdf = async (
     calculatedEstimates: {
       totalAmountInclTax,
       totalCPWithProfit,
+      taxAmount,
       tax,
     },
   } = contractData;
@@ -147,8 +148,25 @@ export const generateContractPdf = async (
     },
   );
 
-  /* 税 */
+  /* うち工事価格 */
+  drawText(
+    firstPage,
+    `￥ ${totalCPWithProfit.toLocaleString() || 0}`,
+    {
+      x: 214,
+      y: 479,
+      size: 10,
+      font: msChinoFont,
+    },
+    {
+      weight: 0,
+      boxWidth: 200,
+      align: 'right',
+    },
+  );
 
+
+  /* 税 */
   drawText(
     firstPage,
     `(${tax} %)`,
@@ -160,6 +178,23 @@ export const generateContractPdf = async (
     },
     {
       weight: 0,
+    },
+  );
+
+  /* 税額 */
+  drawText(
+    firstPage,
+    `￥ ${taxAmount.toLocaleString() || 0}`,
+    {
+      x: 214,
+      y: 466,
+      size: 10,
+      font: msChinoFont,
+    },
+    {
+      weight: 0,
+      boxWidth: 200,
+      align: 'right',
     },
   );
 
@@ -182,7 +217,7 @@ export const generateContractPdf = async (
       }
     }
 
-    /* 金額 */
+    /* 支払額 */
     drawText(
       firstPage,
       resolvePayAmt,
@@ -197,7 +232,7 @@ export const generateContractPdf = async (
       },
     );
 
-    /* 日付 */
+    /* 支払い日 */
     drawText(
       firstPage,
       resolvePayDate,
