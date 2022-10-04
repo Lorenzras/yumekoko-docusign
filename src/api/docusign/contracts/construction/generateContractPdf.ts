@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import {drawText} from '../helpers/pdf';
 import {assetsDir} from '../config/file';
+import {format, parseISO} from 'date-fns';
 
 
 /**
@@ -22,6 +23,7 @@ export const generateContractPdf = async (
   const {
     projId, projName, projLocation,
     custName, custAddress, cocoAG,
+    payments,
   } = contractData;
 
   const {
@@ -45,6 +47,7 @@ export const generateContractPdf = async (
   // Common alignments
   const x1 = 124;
   const x2 = 183;
+  const x3 = 239;
 
   // 工事番号
   drawText(
@@ -117,8 +120,58 @@ export const generateContractPdf = async (
       size: 9,
       font: msChinoFont,
     },
-    0.3,
+    {
+      weight: 0.3,
+    },
   );
+
+  /* 支払い */
+  const payLineHeight = 14;
+  const payBase = 422.5;
+  payments.map(({
+    paymentAmt,
+    paymentDate,
+  }, idx) => {
+    const rowY = payBase - (idx * payLineHeight);
+    const resolvePayAmt = paymentAmt ? paymentAmt.toLocaleString() : '';
+    let resolvePayDate = '';
+
+    if (resolvePayAmt) {
+      if (paymentDate) {
+        resolvePayDate = format(parseISO(paymentDate), 'yyyy年MM月dd日');
+      } else {
+        resolvePayDate = '未定';
+      }
+    }
+
+    drawText(
+      firstPage,
+      resolvePayAmt,
+      {
+        x: x3,
+        y: rowY,
+        font: msChinoFont,
+      },
+      {
+        weight: 0.3,
+        align: 'right',
+      },
+    );
+
+    drawText(
+      firstPage,
+      resolvePayDate,
+      {
+        x: 403,
+        y: rowY,
+        font: msChinoFont,
+      },
+      {
+        weight: 0.3,
+      },
+    );
+  });
+
 
   // 顧客名 下
   drawText(

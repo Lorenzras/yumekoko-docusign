@@ -8,7 +8,7 @@ import {assetsDir} from '../config/file';
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractData({
-      projEstimateId: '25',
+      projEstimateId: '39',
       userCode: 'RPA03',
     });
     const pdf = await generateContractPdf(contractData, 'Uint8Array ');

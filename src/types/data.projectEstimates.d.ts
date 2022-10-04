@@ -2,21 +2,28 @@ declare namespace ProjectEstimates {
   interface Data {
     projId: kintone.fieldTypes.Number;
     contractDate: kintone.fieldTypes.Date;
-    利益率: kintone.fieldTypes.Number;
+    updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
+    hasRefund: kintone.fieldTypes.Number;
+    税: kintone.fieldTypes.Number;
+    顧客名: kintone.fieldTypes.SingleLineText;
+    estimateStatus: kintone.fieldTypes.SingleLineText;
+    voidedEnvelopes: kintone.fieldTypes.SingleLineText;
+    工事種別名: kintone.fieldTypes.SingleLineText;
+    refundAmt: kintone.fieldTypes.Number;
     工事名称: kintone.fieldTypes.SingleLineText;
     envId: kintone.fieldTypes.SingleLineText;
     envStatus: kintone.fieldTypes.SingleLineText;
-    顧客名: kintone.fieldTypes.SingleLineText;
-    contractPrice: kintone.fieldTypes.Number;
-    税率: kintone.fieldTypes.Number;
-    voidedEnvelopes: kintone.fieldTypes.SingleLineText;
-    工事種別名: kintone.fieldTypes.SingleLineText;
+    updatedById: kintone.fieldTypes.Number;
+    工事種別利益: kintone.fieldTypes.Number;
+    projTypeId: kintone.fieldTypes.Number;
+    updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;
+    totalPaymentAmt: kintone.fieldTypes.Calc;
 
     envDocFileKeys: kintone.fieldTypes.File;
     内訳: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -26,8 +33,20 @@ declare namespace ProjectEstimates {
           部材名: kintone.fieldTypes.SingleLineText;
           部材利益率: kintone.fieldTypes.Number;
           中項目: kintone.fieldTypes.SingleLineText;
-          税: kintone.fieldTypes.SingleLineText;
+          taxType: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
+    支払い: {
+      type: 'SUBTABLE';
+      value: Array<{
+        id: string;
+        value: {
+          paymentAmt: kintone.fieldTypes.Number;
+          isPayEnabled: kintone.fieldTypes.Number;
+          paymentDate: kintone.fieldTypes.Date;
+          paymentType: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

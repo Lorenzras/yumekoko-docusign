@@ -1,15 +1,12 @@
 declare namespace ProjectDetails {
   interface Data {
     schedContractDate: kintone.fieldTypes.Date;
-    constructionTypeId: kintone.fieldTypes.Number;
-    constructionType: kintone.fieldTypes.SingleLineText;
     addressKari: kintone.fieldTypes.SingleLineText;
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     envelopeId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
-    constructionName: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.Number;
     estatePurchaseDate: kintone.fieldTypes.Date;
     dsEnvIdUkeoi: kintone.fieldTypes.SingleLineText;
@@ -20,7 +17,10 @@ declare namespace ProjectDetails {
     isDoneInputContract: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
+    projName: kintone.fieldTypes.SingleLineText;
+    projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
+    projTypeId: kintone.fieldTypes.Number;
     contractPrice: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
@@ -31,7 +31,7 @@ declare namespace ProjectDetails {
 
     envDocFileKeys: kintone.fieldTypes.File;
     custGroupAgents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
@@ -42,7 +42,7 @@ declare namespace ProjectDetails {
       }>;
     };
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
@@ -53,7 +53,7 @@ declare namespace ProjectDetails {
       }>;
     };
     custGroup: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

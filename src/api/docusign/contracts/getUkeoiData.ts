@@ -14,7 +14,7 @@ import {getCustomerGroup} from '../../kintone/getCustomerGroup';
 export const getUkeoiData = async (projId: string) => {
   const {
     custGroupId,
-    constructionName,
+    projName,
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
@@ -38,7 +38,7 @@ export const getUkeoiData = async (projId: string) => {
     custEmail: email,
     custName: customerName.value,
     projId: projId,
-    projName: constructionName.value,
+    projName: projName.value,
     custAddress: `〒${postal.value} ${address1.value}${address2.value}`,
     projLocation: `〒${projPostal.value} ${projAddress1.value}${projAddress2.value}`,
     repEmail: 'cocosumo.rpa03@gmail.com',

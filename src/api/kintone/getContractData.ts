@@ -4,7 +4,6 @@ import {getCustomerGroup} from './getCustomerGroup';
 import {getEmployeesByIds} from './getEmployeesByIds';
 import {getEstimateById} from './getEstimateById';
 import {getStoreMngrByStoreId} from './getStoreMngrByStoreId';
-import {getUserByCode, getUserById} from './userApi';
 import {validateContractData} from './validateContractData';
 
 export type TContractData = Awaited<ReturnType<typeof getContractData>>
@@ -31,14 +30,15 @@ isValidate = false,
   /* 見積情報 */
   const {
     projId,
-    contractPrice,
+    totalPaymentAmt,
     envStatus,
     envId,
+    支払い,
   } = await getEstimateById(projEstimateId);
 
   /* 工事情報 */
   const {
-    custGroupId, constructionName,
+    custGroupId, projName,
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
@@ -83,16 +83,31 @@ isValidate = false,
   const accountingName = 'Temporary keiri';
   const accountingEmail = 'info@cocosumo.co.jp';
 
+  /* 支払い */
+  const payments = 支払い.value?.map(({value: {
+    isPayEnabled,
+    paymentAmt,
+    paymentDate,
+    paymentType,
+  }}) => {
+    return {
+      isPayEnabled: Boolean(+isPayEnabled.value),
+      paymentAmt: +paymentAmt?.value || 0,
+      paymentDate: paymentDate?.value || '',
+      paymentType: paymentType?.value || '',
+    };
+  }) ?? [];
+
   const data = {
 
     /* 工事 */
     projId: projId.value,
     projEstimateId: projEstimateId,
-    projName: constructionName.value,
+    projName: projName.value,
     projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
 
     /* 契約 */
-    contractPrice: contractPrice.value,
+    contractPrice: totalPaymentAmt.value,
     envelopeId: envId.value,
 
     /* 顧客 */
@@ -114,6 +129,8 @@ isValidate = false,
     /* 契約関連 */
     envelopeStatus: envStatus.value,
 
+    /* 支払い */
+    payments,
   };
 
   if (isValidate) validateContractData(data);
