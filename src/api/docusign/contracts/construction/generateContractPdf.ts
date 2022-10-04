@@ -144,6 +144,7 @@ export const generateContractPdf = async (
       }
     }
 
+    /* 金額 */
     drawText(
       firstPage,
       resolvePayAmt,
@@ -158,16 +159,19 @@ export const generateContractPdf = async (
       },
     );
 
+    /* 日付 */
     drawText(
       firstPage,
       resolvePayDate,
       {
-        x: 403,
+        x: 394,
         y: rowY,
         font: msChinoFont,
       },
       {
         weight: 0.3,
+        boxWidth: 140,
+        align: 'center',
       },
     );
   });

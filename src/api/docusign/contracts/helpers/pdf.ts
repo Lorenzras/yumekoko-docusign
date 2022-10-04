@@ -2,8 +2,9 @@ import {PDFPage, PDFPageDrawTextOptions, rgb} from 'pdf-lib';
 
 type AdvancedOptions = {
   weight?: number,
-  align?: 'left' | 'right',
+  align?: 'left' | 'right' | 'center',
   boxWidth?: number,
+  isShowBox?: boolean
 }
 
 /**
@@ -35,38 +36,51 @@ export const drawText = async (
     weight = 0.4,
     align = 'left',
     boxWidth = 102,
+    isShowBox = false,
+
   } = advancedOptions || {};
   const textWidth = font?.widthOfTextAtSize(text, size) ?? 0;
   const boxX = x ?? 0;
   const boxY = y ?? 0;
 
+  if (isShowBox) {
+    pdfPage.drawRectangle({
+      x: boxX,
+      y: boxY,
+      width: boxWidth,
+      height: 50,
+      borderColor: rgb(1, 0, 0),
+    });
+  }
+
 
   for (let i = 0; i <= weight; i += 0.1) {
-    if (align=== 'left') {
-      pdfPage.drawText(text, {
-        x: (x || 0) + i,
-        y: y,
-        size: size,
-        font: font,
-        color: color,
-      });
-    } else {
-      /*
-        For debugging, don't remove
-      console.log(boxX + boxWidth - textWidth, boxX, boxWidth, textWidth, font);
-      pdfPage.drawRectangle({
-        x: boxX,
-        y: boxY,
-        width: boxWidth,
-        height: 50,
-        borderColor: rgb(1, 0, 0),
-      }); */
-      pdfPage.drawText(text, {
-        x: boxX + boxWidth - textWidth,
-        y: boxY,
-        font,
-        size: size,
-      });
+    switch (align) {
+      case 'left':
+        pdfPage.drawText(text, {
+          x: (x || 0) + i,
+          y: y,
+          size: size,
+          font: font,
+          color: color,
+        });
+        break;
+      case 'right':
+        pdfPage.drawText(text, {
+          x: boxX + boxWidth - textWidth,
+          y: boxY,
+          font,
+          size: size,
+        });
+        break;
+      case 'center':
+        pdfPage.drawText(text, {
+          x: boxX + boxWidth - (textWidth + (textWidth / 2)),
+          y: boxY,
+          font,
+          size: size,
+        });
+        break;
     }
   }
 };
