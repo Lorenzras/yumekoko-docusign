@@ -1,4 +1,5 @@
 import {getProjectDetails} from '.';
+import {calculateEstimateRecord} from './calculations/calculateEstimateRecord';
 import {getCustomerById} from './getCustomerById';
 import {getCustomerGroup} from './getCustomerGroup';
 import {getEmployeesByIds} from './getEmployeesByIds';
@@ -28,13 +29,16 @@ isValidate = false,
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 見積情報 */
+  const estimatedRecord = await getEstimateById(projEstimateId);
   const {
     projId,
     totalPaymentAmt,
     envStatus,
     envId,
     支払い,
-  } = await getEstimateById(projEstimateId);
+  } = estimatedRecord;
+
+  const calculatedEstimates = await calculateEstimateRecord(estimatedRecord);
 
   /* 工事情報 */
   const {
@@ -131,6 +135,9 @@ isValidate = false,
 
     /* 支払い */
     payments,
+
+    /* 計算 */
+    calculatedEstimates,
   };
 
   if (isValidate) validateContractData(data);

@@ -24,6 +24,11 @@ export const generateContractPdf = async (
     projId, projName, projLocation,
     custName, custAddress, cocoAG,
     payments,
+    calculatedEstimates: {
+      totalAmountInclTax,
+      totalCPWithProfit,
+      tax,
+    },
   } = contractData;
 
   const {
@@ -122,6 +127,39 @@ export const generateContractPdf = async (
     },
     {
       weight: 0.3,
+    },
+  );
+
+  /* 請負代金金額 */
+  drawText(
+    firstPage,
+    `￥ ${totalAmountInclTax?.toLocaleString() || 0}`,
+    {
+      x: 211,
+      y: 493,
+      size: 11,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.3,
+      boxWidth: 218,
+      align: 'center',
+    },
+  );
+
+  /* 税 */
+
+  drawText(
+    firstPage,
+    `(${tax} %)`,
+    {
+      x: 214,
+      y: 466,
+      size: 10,
+      font: msChinoFont,
+    },
+    {
+      weight: 0,
     },
   );
 

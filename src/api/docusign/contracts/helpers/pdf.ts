@@ -75,7 +75,7 @@ export const drawText = async (
         break;
       case 'center':
         pdfPage.drawText(text, {
-          x: boxX + boxWidth - (textWidth + (textWidth / 2)),
+          x: (boxX + (boxWidth / 2 )) - (textWidth / 2),
           y: boxY,
           font,
           size: size,
