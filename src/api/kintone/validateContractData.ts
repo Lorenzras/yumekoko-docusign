@@ -11,6 +11,7 @@ export const validateContractData = (data: TContractData) => {
 
     accountingName,
     accountingEmail,
+
   } = data;
 
   if (!custEmail) throw new Error(`顧客メールは指定しいません。${custName}`);

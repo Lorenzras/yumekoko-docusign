@@ -36,6 +36,13 @@ isValidate = false,
     envStatus,
     envId,
     支払い,
+    startDate,
+    startDaysAfterContract,
+    finishDate,
+    finishDaysAfterContract,
+    completeDate,
+    payMethod,
+    payDestination,
   } = estimatedRecord;
 
   const calculatedEstimates = await calculateEstimateRecord(estimatedRecord);
@@ -133,8 +140,17 @@ isValidate = false,
     /* 契約関連 */
     envelopeStatus: envStatus.value,
 
+    /* 工期 */
+    startDate: startDate.value,
+    startDaysAfterContract: startDaysAfterContract.value,
+    finishDate: finishDaysAfterContract.value,
+    finishDaysAfterContract: finishDaysAfterContract.value,
+    completeDate: completeDate.value,
+
     /* 支払い */
     payments,
+    payDestination: payDestination.value,
+    payMethod: payMethod.value as '持参' | '集金' | '振込',
 
     /* 計算 */
     calculatedEstimates,

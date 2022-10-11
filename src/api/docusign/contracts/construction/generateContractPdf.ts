@@ -1,11 +1,12 @@
 import {getContractData} from '../../../kintone/getContractData';
 import path from 'path';
-import {PDFDocument} from 'pdf-lib';
+import {grayscale, PDFDocument} from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import {drawText} from '../helpers/pdf';
 import {assetsDir} from '../config/file';
 import {format, parseISO} from 'date-fns';
+import {getPayMethodX} from './generateContractPdfHelper';
 
 
 /**
@@ -30,6 +31,13 @@ export const generateContractPdf = async (
       taxAmount,
       tax,
     },
+    startDate,
+    startDaysAfterContract,
+    finishDate,
+    finishDaysAfterContract,
+    completeDate,
+    payDestination,
+    payMethod,
   } = contractData;
 
   const {
@@ -248,6 +256,36 @@ export const generateContractPdf = async (
       },
     );
   });
+
+  /* 支払い方法
+    xの値、
+    持参：175
+  */
+  firstPage.drawCircle({
+    x: getPayMethodX(payMethod),
+    y: 369,
+    size: 4,
+    borderWidth: 1,
+    color: grayscale(0.1),
+    opacity: 0.1,
+  });
+
+  if (payMethod === '振込') {
+    drawText(
+      firstPage,
+      payDestination,
+      {
+        x: 380,
+        y: 367,
+        font: msChinoFont,
+      },
+      {
+        weight: 0.3,
+        boxWidth: 152,
+        align: 'center',
+      },
+    );
+  }
 
 
   // 顧客名 下
