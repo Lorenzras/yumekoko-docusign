@@ -19,6 +19,12 @@ export const makeEnvelope = async (
     custName,
     cocoAG,
     projName,
+
+    storeMngrName,
+    storeMngrEmail,
+
+    accountingName,
+    accountingEmail,
   } = data;
 
   const {
@@ -32,13 +38,12 @@ export const makeEnvelope = async (
   const officerSinger: Signer = {
     email: isProd ? officerEmail :testTantouEmail,
     name: officerName,
-    recipientId: '担当者',
+    recipientId: '1',
     routingOrder: '1',
     tabs: {
       signHereTabs: [{
         anchorString: '/sC/',
         documentId: '1',
-        recipientId: '担当者',
         pageNumber: '1',
         tabLabel: 'sC',
       }],
@@ -50,15 +55,46 @@ export const makeEnvelope = async (
   const customerSigner: Signer = {
     email: custEmail,
     name: custName,
-    recipientId: '顧客',
+    recipientId: '2',
     routingOrder: '2',
     tabs: {
       signHereTabs: [{
         anchorString: '/sH/',
         documentId: '1',
-        recipientId: '顧客',
         pageNumber: '1',
         tabLabel: 'sH',
+      }],
+    },
+  };
+
+  /* 店長 */
+  const tenchoSigner: Signer = {
+    email: isProd ? storeMngrEmail : testTenchoEmail,
+    name: storeMngrName,
+    recipientId: '3',
+    routingOrder: '3',
+    tabs: {
+      approveTabs: [{
+        anchorString: '/aT/',
+        documentId: '1',
+        pageNumber: '1',
+        tabLabel: 'aT',
+      }],
+    },
+  };
+
+  /* 経理 */
+  const accountingSigner: Signer = {
+    email: isProd ? accountingEmail : testKeiriEmail,
+    name: accountingName,
+    recipientId: '33',
+    routingOrder: '3',
+    tabs: {
+      approveTabs: [{
+        anchorString: '/kT/',
+        documentId: '1',
+        pageNumber: '1',
+        tabLabel: 'kT',
       }],
     },
   };
@@ -79,8 +115,8 @@ export const makeEnvelope = async (
       signers: [
         customerSigner, // 顧客
         officerSinger, // 担当者
-        // 店長,
-        // 経理
+        tenchoSigner, // 店長,
+        accountingSigner, // 経理
       ],
     },
     status: status,

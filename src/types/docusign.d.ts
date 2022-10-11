@@ -155,6 +155,8 @@ interface IConnectEvent {
   }
 }
 
+type IConnectRecipients = IConnectEvent['data']['envelopeSummary']['recipients']
+
 interface ISendEnvelopeResponse {
   /** base64 files */
   documents: string[],
