@@ -1,6 +1,7 @@
 import {RequestHandler} from 'express';
 import {voidEnvelope} from '../api/docusign';
 import {APPIDS, KintoneRecord} from '../api/kintone';
+import {getEstimateByEnvId} from '../api/kintone/getEstimateByEnvId';
 import {getProjByEnvelope} from '../api/kintone/getProjByEnvelope';
 
 /**
@@ -28,7 +29,7 @@ export const reqVoidEnvelope : RequestHandler = async (
 
     const {
       $id,
-    } = await getProjByEnvelope(envelopeId);
+    } = await getEstimateByEnvId(envelopeId);
     console.log(`Voiding envelope id: ${envelopeId}`);
 
     const record : Partial<ProjectDetails.SavedData> = {
@@ -39,7 +40,7 @@ export const reqVoidEnvelope : RequestHandler = async (
     };
 
     await KintoneRecord.updateRecord({
-      app: APPIDS.projectDetails,
+      app: APPIDS.projEstimate,
       id: $id.value,
       record: record,
     });

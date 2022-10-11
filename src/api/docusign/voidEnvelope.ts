@@ -20,7 +20,6 @@ export const voidEnvelope = async (
     voidedReason,
   };
 
-  console.log(accountId, env);
 
   return await envelopeApi.update(accountId, envelopeId, {envelope: env});
 };
