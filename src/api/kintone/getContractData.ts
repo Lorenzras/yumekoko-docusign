@@ -143,7 +143,7 @@ isValidate = false,
     /* 工期 */
     startDate: startDate.value,
     startDaysAfterContract: startDaysAfterContract.value,
-    finishDate: finishDaysAfterContract.value,
+    finishDate: finishDate.value,
     finishDaysAfterContract: finishDaysAfterContract.value,
     completeDate: completeDate.value,
 

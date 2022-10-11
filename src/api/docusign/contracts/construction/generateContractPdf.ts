@@ -7,6 +7,7 @@ import {drawText} from '../helpers/pdf';
 import {assetsDir} from '../config/file';
 import {format, parseISO} from 'date-fns';
 import {getPayMethodX} from './generateContractPdfHelper';
+import {Console} from 'winston/lib/winston/transports';
 
 
 /**
@@ -85,17 +86,6 @@ export const generateContractPdf = async (
     },
   );
 
-  // 工事場所
-  drawText(
-    firstPage,
-    projLocation,
-    {
-      x: x2,
-      y: 580,
-      font: msChinoFont,
-    },
-  );
-
   // 顧客名
   drawText(
     firstPage,
@@ -139,13 +129,104 @@ export const generateContractPdf = async (
     },
   );
 
+  // 工事場所
+  drawText(
+    firstPage,
+    projLocation,
+    {
+      x: x2,
+      y: 580,
+      font: msChinoFont,
+    },
+  );
+
+  /* 工期：着手 */
+  drawText(
+    firstPage,
+    startDate ? format(parseISO(startDate), 'yyyy年MM月dd日') : '',
+    {
+      x: 239,
+      y: 565,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.1,
+      boxWidth: 102,
+      align: 'center',
+    },
+  );
+
+  /* 工期：着手の契約の日から＿＿日以内 */
+  drawText(
+    firstPage,
+    startDaysAfterContract,
+    {
+      x: 299,
+      y: 551,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.1,
+      boxWidth: 30,
+      align: 'right',
+    },
+  );
+
+
+  /* 工期：完成 */
+  drawText(
+    firstPage,
+    finishDate ? format(parseISO(finishDate), 'yyyy年MM月dd日') : '',
+    {
+      x: 239,
+      y: 537,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.3,
+      boxWidth: 102,
+      align: 'center',
+    },
+  );
+
+  /* 工期：完成の契約の日から＿＿日以内 */
+  drawText(
+    firstPage,
+    finishDaysAfterContract,
+    {
+      x: 299,
+      y: 523,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.3,
+      boxWidth: 30,
+      align: 'right',
+    },
+  );
+
+  /* 引渡しの時期、完成の日 */
+  drawText(
+    firstPage,
+    completeDate ? format(parseISO(completeDate), 'yyyy年MM月dd日') : '',
+    {
+      x: 227,
+      y: 509,
+      font: msChinoFont,
+      size: 10,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
   /* 請負代金金額 */
   drawText(
     firstPage,
     `￥ ${Math.round(totalAmountInclTax || 0).toLocaleString()}`,
     {
       x: 211,
-      y: 493,
+      y: 494,
       size: 11,
       font: msChinoFont,
     },
@@ -162,7 +243,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalCPWithProfit || 0).toLocaleString() }`,
     {
       x: 214,
-      y: 479,
+      y: 480,
       size: 10,
       font: msChinoFont,
     },
@@ -257,10 +338,7 @@ export const generateContractPdf = async (
     );
   });
 
-  /* 支払い方法
-    xの値、
-    持参：175
-  */
+  /* 支払い方法 */
   firstPage.drawCircle({
     x: getPayMethodX(payMethod),
     y: 369,

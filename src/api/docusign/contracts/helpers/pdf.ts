@@ -1,15 +1,17 @@
 import {PDFPage, PDFPageDrawTextOptions, rgb} from 'pdf-lib';
 
 type AdvancedOptions = {
-  weight?: number,
-  align?: 'left' | 'right' | 'center',
-  boxWidth?: number,
-  isShowBox?: boolean
+  weight?: number, // 太さ デフォールト 0.4
+  boxWidth?: number, // フィールドの後ろのXから頭のＸを引いた数字。
+  align?: 'left' | 'right' | 'center', // 水平方向への配置, boxWidthに依存している
+  isShowBox?: boolean // trueにすると、赤い箱が表示されます。デバグの時、役に立つ
 }
 
 /**
- * Hackish solution to implement font-weight (bold)
- * Update his, once pdf-lib officially support it.
+ * Wrapper function to implement font-weight (bold)
+ * and other text rendering functionalities.
+ *
+ * Update this, once pdf-lib officially support them.
  * https://github.com/Hopding/pdf-lib/discussions/998
  *
  * Author: Ras
