@@ -5,6 +5,7 @@ export const getStoreMngrByStoreId = async (storeId: string) => {
   try {
     const keyStoreId : KeyOfEmployeesStores = 'storeId';
     const affiliation: KeyOfEmployees = 'affiliation';
+    const role : KeyOfEmployees = '役職';
     const cocosumo: Company = 'ここすも';
 
     const {records} = await KintoneRecord.getRecords({
@@ -19,6 +20,7 @@ export const getStoreMngrByStoreId = async (storeId: string) => {
       query: [
         `${keyStoreId} in ("${storeId}")`,
         `${affiliation} in ("${cocosumo}")`,
+        `${role} in ("店長")`,
       ].join(' and '),
     });
 

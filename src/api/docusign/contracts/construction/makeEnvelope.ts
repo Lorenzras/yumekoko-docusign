@@ -32,12 +32,15 @@ export const makeEnvelope = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
+  console.log(data);
+
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
 
   /* 担当者 */
   const officerSinger: Signer = {
     email: isProd ? officerEmail :testTantouEmail,
     name: officerName,
+    roleName: '担当者',
     recipientId: '1',
     routingOrder: '1',
     tabs: {
@@ -55,6 +58,7 @@ export const makeEnvelope = async (
   const customerSigner: Signer = {
     email: custEmail,
     name: custName,
+    roleName: '顧客',
     recipientId: '2',
     routingOrder: '2',
     tabs: {
@@ -71,6 +75,7 @@ export const makeEnvelope = async (
   const tenchoSigner: Signer = {
     email: isProd ? storeMngrEmail : testTenchoEmail,
     name: storeMngrName,
+    roleName: '店長',
     recipientId: '3',
     routingOrder: '3',
     tabs: {
@@ -87,6 +92,7 @@ export const makeEnvelope = async (
   const accountingSigner: Signer = {
     email: isProd ? accountingEmail : testKeiriEmail,
     name: accountingName,
+    roleName: '経理',
     recipientId: '33',
     routingOrder: '3',
     tabs: {
