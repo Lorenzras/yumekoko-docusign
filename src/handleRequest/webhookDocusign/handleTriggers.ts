@@ -17,6 +17,7 @@
 import {RequestHandler} from 'express';
 import {voidEnvelope} from './voidEnvelope';
 import {saveToKintone} from './saveToKintone';
+import {format} from 'date-fns';
 
 
 export const handleTriggers: RequestHandler = async (req, res) =>{
@@ -28,10 +29,11 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
     } = payload;
 
     let message = 'Handled by the server.';
-    console.log('Incoming event ' + event);
+    console.log(`Incoming event ${event} ${format(new Date(), 'yyyy.MM.dd HH:mm:ss')}`);
 
     switch (event) {
       case 'envelope-voided':
+      case 'envelope-deleted':
         await voidEnvelope(data.envelopeId);
         break;
       // case 'envelope-sent':
