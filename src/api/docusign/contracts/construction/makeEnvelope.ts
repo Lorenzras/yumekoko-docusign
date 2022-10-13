@@ -36,13 +36,31 @@ export const makeEnvelope = async (
 
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
 
+  /* 顧客署名 */
+  const customerSigner: Signer = {
+    email: custEmail,
+    name: custName,
+    roleName: '顧客',
+    recipientId: '1',
+    routingOrder: '1',
+    tabs: {
+      signHereTabs: [{
+        anchorString: '/sH/',
+        documentId: '1',
+        pageNumber: '1',
+        tabLabel: 'sH',
+      }],
+    },
+  };
+
+
   /* 担当者 */
   const officerSinger: Signer = {
     email: isProd ? officerEmail :testTantouEmail,
     name: officerName,
     roleName: '担当者',
-    recipientId: '1',
-    routingOrder: '1',
+    recipientId: '2',
+    routingOrder: '2',
     tabs: {
       signHereTabs: [{
         anchorString: '/sC/',
@@ -53,23 +71,6 @@ export const makeEnvelope = async (
     },
   };
 
-
-  /* 顧客署名 */
-  const customerSigner: Signer = {
-    email: custEmail,
-    name: custName,
-    roleName: '顧客',
-    recipientId: '2',
-    routingOrder: '2',
-    tabs: {
-      signHereTabs: [{
-        anchorString: '/sH/',
-        documentId: '1',
-        pageNumber: '1',
-        tabLabel: 'sH',
-      }],
-    },
-  };
 
   /* 店長 */
   const tenchoSigner: Signer = {

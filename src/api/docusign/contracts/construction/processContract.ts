@@ -23,9 +23,7 @@ export const processContract = async (
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];
 
-
     if (data.envelopeId) throw new Error(`エンヴェロープはもう存在しています。リロードして解決出来なかったら、お手数ですが、管理者にご連絡ください。 ${data.envelopeId}`);
-    if (!data.custEmail) throw new Error('顧客のメールアドレスは無効です。確認してください。');
 
     console.log('Creating envelope.');
     envSummary = await envelopesApi.createEnvelope(

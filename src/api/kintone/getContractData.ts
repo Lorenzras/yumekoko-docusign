@@ -2,6 +2,7 @@ import {getProjectDetails} from '.';
 import {calculateEstimateRecord} from './calculations/calculateEstimateRecord';
 import {getCustomerById} from './getCustomerById';
 import {getCustomerGroup} from './getCustomerGroup';
+import {getCustomersByIds} from './getCustomersByGroupId';
 import {getEmployeesByIds} from './getEmployeesByIds';
 import {getEstimateById} from './getEstimateById';
 import {getStoreMngrByStoreId} from './getStoreMngrByStoreId';
@@ -61,15 +62,28 @@ isValidate = false,
     members,
     storeId,
   } = await getCustomerGroup(custGroupId.value);
-  const firstCustomer = members.value[0];
-  const {customerId} = firstCustomer.value;
-  const {
-    fullName, contacts,
-    address1, address2, postalCode,
-  } = await getCustomerById(customerId.value);
-  const {contactValue: email} = contacts.value
-    .find(({value: {contactType}}) => contactType.value === 'email')
-    ?.value ?? {};
+
+  const custIds = members.value
+    .map(({value: {customerId}}) => customerId.value );
+
+  const rawCustomers = await getCustomersByIds(custIds);
+
+  /* 顧客全員 */
+  const customers = rawCustomers.map(({
+    fullName,
+    contacts,
+    postalCode,
+    address1,
+    address2,
+  }) => {
+    return {
+      custName: fullName.value,
+      email: contacts.value
+        .find(({value: {contactType}}) => contactType.value === 'email')
+        ?.value.contactValue.value,
+      address: `${postalCode.value}〒 ${address1.value}${address2.value}`,
+    };
+  });
 
 
   /* 担当情報 */
@@ -122,9 +136,7 @@ isValidate = false,
     envelopeId: envId.value,
 
     /* 顧客 */
-    custName: fullName.value,
-    custAddress: `${postalCode.value}〒 ${address1.value}${address2.value}`,
-    custEmail: email?.value,
+    customers,
 
     /* 担当者 */
     cocoAG,
