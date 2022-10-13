@@ -107,7 +107,7 @@ export const makeEnvelope = async (
 
 
   const env: EnvelopeDefinition = {
-    emailSubject: `【${projName}】サインをお願いします。`,
+    emailSubject: `【${projName}】`,
     documents: [
       {
         documentBase64: documentBase64,

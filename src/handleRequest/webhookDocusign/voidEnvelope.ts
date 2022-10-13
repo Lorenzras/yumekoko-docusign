@@ -25,6 +25,7 @@ export const voidEnvelope = async (envelopeId: string) => {
     envId: {value: ''},
     envDocFileKeys: {value: []} as any, // Remove attached files
     envStatus: {value: ''},
+    envRecipients: {value: ''},
     voidedEnvelopes: {
       value: [
         ...(voidedEnvelopes.value.split(',')),
