@@ -6,10 +6,10 @@ it('should porcess contract', async () => {
   console.log(process.env.NODE_ENV);
 
   const result = await processContract({
-    projEstimateId: '74',
+    projEstimateId: '35',
     userCode: 'RPA03',
   },
-  'sent',
+  'created',
   );
 
   expect(result).toMatchSnapshot();

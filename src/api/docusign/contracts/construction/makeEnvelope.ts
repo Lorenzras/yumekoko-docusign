@@ -31,26 +31,7 @@ export const makeEnvelope = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  console.log(data);
-
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
-
-  /* 顧客署名 */
-  /*   const customerSigner: Signer = {
-    email: custEmail,
-    name: custName,
-    roleName: '顧客',
-    recipientId: '1',
-    routingOrder: '1',
-    tabs: {
-      signHereTabs: [{
-        anchorString: '/sH/',
-        documentId: '1',
-        pageNumber: '1',
-        tabLabel: 'sH',
-      }],
-    },
-  }; */
 
   const customerSigners = customers
     .map<Signer>(
@@ -69,10 +50,12 @@ export const makeEnvelope = async (
         routingOrder: '1',
         tabs: {
           signHereTabs: [{
-            anchorString: '/sH/',
+            anchorString: `c${idx + 1}`,
+            anchorYOffset: '10',
+            scaleValue: '66',
             documentId: '1',
             pageNumber: '1',
-            tabLabel: 'sH',
+            tabLabel: 'c',
           }],
         },
       };
@@ -87,11 +70,11 @@ export const makeEnvelope = async (
     recipientId: '2',
     routingOrder: '2',
     tabs: {
-      signHereTabs: [{
-        anchorString: '/sC/',
+      approveTabs: [{
+        anchorString: '/tt/',
         documentId: '1',
         pageNumber: '1',
-        tabLabel: 'sC',
+        tabLabel: '担当者',
       }],
     },
   };
@@ -106,10 +89,10 @@ export const makeEnvelope = async (
     routingOrder: '3',
     tabs: {
       approveTabs: [{
-        anchorString: '/aT/',
+        anchorString: '/tc/',
         documentId: '1',
         pageNumber: '1',
-        tabLabel: 'aT',
+        tabLabel: '店長',
       }],
     },
   };
@@ -123,10 +106,10 @@ export const makeEnvelope = async (
     routingOrder: '3',
     tabs: {
       approveTabs: [{
-        anchorString: '/kT/',
+        anchorString: '/ke/',
         documentId: '1',
         pageNumber: '1',
-        tabLabel: 'kT',
+        tabLabel: '経理',
       }],
     },
   };

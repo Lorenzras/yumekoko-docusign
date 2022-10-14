@@ -34,9 +34,11 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
     switch (event) {
       case 'envelope-voided':
       case 'envelope-deleted':
+      case 'envelope-discard':
         await voidEnvelope(data.envelopeId);
         break;
       // case 'envelope-sent':
+      case 'envelope-corrected':
       case 'envelope-completed':
       case 'recipient-completed':
         await saveToKintone(payload);
