@@ -89,7 +89,7 @@ export const generateContractPdf = async (
   // 顧客名
   drawText(
     firstPage,
-    `${custName} 様`,
+    customers.map(({custName}) => `${custName} 様` ).join(' と '),
     {
       x: x1,
       y: 685,
@@ -115,7 +115,7 @@ export const generateContractPdf = async (
 
 
   // 顧客住所
-  drawText(
+  /*   drawText(
     firstPage,
     custAddress,
     {
@@ -127,7 +127,7 @@ export const generateContractPdf = async (
     {
       weight: 0.3,
     },
-  );
+  ); */
 
   // 工事場所
   drawText(
@@ -298,12 +298,8 @@ export const generateContractPdf = async (
     const resolvePayAmt = paymentAmt ? paymentAmt.toLocaleString() : '';
     let resolvePayDate = '';
 
-    if (resolvePayAmt) {
-      if (paymentDate) {
-        resolvePayDate = format(parseISO(paymentDate), 'yyyy年MM月dd日');
-      } else {
-        resolvePayDate = '未定';
-      }
+    if (resolvePayAmt && paymentDate) {
+      resolvePayDate = format(parseISO(paymentDate), 'yyyy年MM月dd日');
     }
 
     /* 支払額 */
@@ -367,15 +363,15 @@ export const generateContractPdf = async (
 
 
   // 顧客名 下
-  drawText(
+  /*   drawText(
     firstPage,
-    `${custName} 様`,
+    customers.map(({custName}) => custName ).join(' と '),
     {
       x: x2,
       y: 228,
       font: msChinoFont,
     },
-  );
+  ); */
 
   // 担当者名
   drawText(

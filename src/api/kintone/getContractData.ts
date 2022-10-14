@@ -86,6 +86,9 @@ isValidate = false,
   });
 
 
+  console.log(customers);
+
+
   /* 担当情報 */
   const cocoAgIds = agents.value
     .filter(({value: {agentType}}) => (

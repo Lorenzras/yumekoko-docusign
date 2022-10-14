@@ -15,8 +15,7 @@ export const makeEnvelope = async (
   data: Awaited<ReturnType<typeof getContractData>>,
   status: 'created' | 'sent' = 'sent') => {
   const {
-    custEmail,
-    custName,
+    customers,
     cocoAG,
     projName,
 
@@ -37,7 +36,7 @@ export const makeEnvelope = async (
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
 
   /* 顧客署名 */
-  const customerSigner: Signer = {
+  /*   const customerSigner: Signer = {
     email: custEmail,
     name: custName,
     roleName: '顧客',
@@ -51,7 +50,33 @@ export const makeEnvelope = async (
         tabLabel: 'sH',
       }],
     },
-  };
+  }; */
+
+  const customerSigners = customers
+    .map<Signer>(
+    (
+      {
+        custName,
+        email: custEmail,
+      },
+      idx,
+    ) => {
+      return {
+        email: custEmail,
+        name: custName,
+        roleName: '顧客',
+        recipientId: `${1}${idx}`,
+        routingOrder: '1',
+        tabs: {
+          signHereTabs: [{
+            anchorString: '/sH/',
+            documentId: '1',
+            pageNumber: '1',
+            tabLabel: 'sH',
+          }],
+        },
+      };
+    });
 
 
   /* 担当者 */
@@ -120,7 +145,7 @@ export const makeEnvelope = async (
     ],
     recipients: {
       signers: [
-        customerSigner, // 顧客
+        ...customerSigners, // 顧客
         officerSinger, // 担当者
         tenchoSigner, // 店長,
         accountingSigner, // 経理
