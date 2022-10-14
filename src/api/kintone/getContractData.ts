@@ -26,6 +26,7 @@ export const getContractData = async ({
   userCode: string,
 },
 isValidate = false,
+
 ) => {
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
@@ -44,6 +45,7 @@ isValidate = false,
     completeDate,
     payMethod,
     payDestination,
+    signMethod,
   } = estimatedRecord;
 
   const calculatedEstimates = await calculateEstimateRecord(estimatedRecord);
@@ -140,6 +142,7 @@ isValidate = false,
     /* 契約 */
     contractPrice: totalPaymentAmt.value,
     envelopeId: envId.value,
+    signMethod: signMethod.value as TSignMethod,
 
     /* 顧客 */
     customers,

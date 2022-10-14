@@ -51,7 +51,7 @@ export const makeEnvelope = async (
         tabs: {
           signHereTabs: [{
             anchorString: `c${idx + 1}`,
-            anchorYOffset: '10',
+            anchorYOffset: '5',
             scaleValue: '66',
             documentId: '1',
             pageNumber: '1',
