@@ -6,7 +6,7 @@ import fontkit from '@pdf-lib/fontkit';
 import {drawText} from '../helpers/pdf';
 import {assetsDir, latestPDF} from '../config/file';
 import {format, parseISO} from 'date-fns';
-import {getPayMethodX} from './generateContractPdfHelper';
+import {drawCustAddress, getPayMethodX} from './generateContractPdfHelper';
 
 
 /**
@@ -70,7 +70,7 @@ export const generateContractPdf = async (
     projId,
     {
       x: x1,
-      y: 787,
+      y: 782,
       font: msChinoFont,
     },
   );
@@ -81,7 +81,7 @@ export const generateContractPdf = async (
     projName,
     {
       x: x1 + 100,
-      y: 787,
+      y: 782,
       font: msChinoFont,
     },
   );
@@ -92,7 +92,7 @@ export const generateContractPdf = async (
     customers.map(({custName}) => `${custName} 様` ).join(' と '),
     {
       x: x1,
-      y: 685,
+      y: 680,
       font: msChinoFont,
     },
   );
@@ -103,7 +103,7 @@ export const generateContractPdf = async (
     projName,
     {
       x: x1,
-      y: 613,
+      y: 608,
       font: msChinoFont,
     },
   );
@@ -115,19 +115,19 @@ export const generateContractPdf = async (
 
 
   // 顧客住所
-  /*   drawText(
+  drawText(
     firstPage,
-    custAddress,
+    customers[0].address,
     {
       x: x2,
-      y: 241,
+      y: 238,
       size: 9,
       font: msChinoFont,
+    }, {
+      weight: 0.1,
     },
-    {
-      weight: 0.3,
-    },
-  ); */
+  );
+  // drawCustAddress(customers, x2, firstPage, msChinoFont);
 
   // 工事場所
   drawText(
@@ -135,7 +135,7 @@ export const generateContractPdf = async (
     projLocation,
     {
       x: x2,
-      y: 585,
+      y: 580,
       font: msChinoFont,
     },
   );
@@ -146,7 +146,7 @@ export const generateContractPdf = async (
     startDate ? format(parseISO(startDate), 'yyyy年MM月dd日') : '',
     {
       x: 239,
-      y: 570,
+      y: 565,
       font: msChinoFont,
     },
     {
@@ -162,7 +162,7 @@ export const generateContractPdf = async (
     startDaysAfterContract,
     {
       x: 299,
-      y: 556,
+      y: 551,
       font: msChinoFont,
     },
     {
@@ -179,7 +179,7 @@ export const generateContractPdf = async (
     finishDate ? format(parseISO(finishDate), 'yyyy年MM月dd日') : '',
     {
       x: 239,
-      y: 542,
+      y: 537,
       font: msChinoFont,
     },
     {
@@ -195,7 +195,7 @@ export const generateContractPdf = async (
     finishDaysAfterContract,
     {
       x: 299,
-      y: 528,
+      y: 523,
       font: msChinoFont,
     },
     {
@@ -211,7 +211,7 @@ export const generateContractPdf = async (
     completeDate ? format(parseISO(completeDate), 'yyyy年MM月dd日') : '',
     {
       x: 227,
-      y: 514,
+      y: 509,
       font: msChinoFont,
       size: 10,
     },
@@ -226,7 +226,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalAmountInclTax || 0).toLocaleString()}`,
     {
       x: 211,
-      y: 499,
+      y: 494,
       size: 11,
       font: msChinoFont,
     },
@@ -243,7 +243,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalCPWithProfit || 0).toLocaleString() }`,
     {
       x: 214,
-      y: 485,
+      y: 480,
       size: 10,
       font: msChinoFont,
     },
@@ -261,7 +261,7 @@ export const generateContractPdf = async (
     `(${tax} %)`,
     {
       x: 214,
-      y: 471,
+      y: 466,
       size: 10,
       font: msChinoFont,
     },
@@ -276,7 +276,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(taxAmount || 0).toLocaleString()}`,
     {
       x: 214,
-      y: 471,
+      y: 466,
       size: 10,
       font: msChinoFont,
     },
@@ -289,12 +289,12 @@ export const generateContractPdf = async (
 
   /* 支払い */
   const payLineHeight = 14;
-  const payBase = 427.5;
+  const payYBase = 422.5;
   payments.map(({
     paymentAmt,
     paymentDate,
   }, idx) => {
-    const rowY = payBase - (idx * payLineHeight);
+    const rowY = payYBase - (idx * payLineHeight);
     const resolvePayAmt = paymentAmt ? paymentAmt.toLocaleString() : '';
     let resolvePayDate = '';
 
@@ -337,7 +337,7 @@ export const generateContractPdf = async (
   /* 支払い方法 */
   firstPage.drawCircle({
     x: getPayMethodX(payMethod),
-    y: 374,
+    y: 369,
     size: 4,
     borderWidth: 1,
     color: grayscale(0.1),
@@ -350,7 +350,7 @@ export const generateContractPdf = async (
       payDestination,
       {
         x: 380,
-        y: 372,
+        y: 367,
         font: msChinoFont,
       },
       {
@@ -379,7 +379,7 @@ export const generateContractPdf = async (
     officerName,
     {
       x: x2,
-      y: 147,
+      y: 152,
       font: msChinoFont,
     },
   );

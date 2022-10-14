@@ -82,6 +82,9 @@ isValidate = false,
         .find(({value: {contactType}}) => contactType.value === 'email')
         ?.value.contactValue.value,
       address: `${postalCode.value}〒 ${address1.value}${address2.value}`,
+      postalCode: postalCode.value,
+      address1: address1.value,
+      address2: address2.value,
     };
   });
 
