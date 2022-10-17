@@ -9,6 +9,9 @@ export const processContract = async (
   params: ReqSendContract,
   status: 'created' | 'sent' = 'sent',
 ) => {
+  const {
+    signMethod,
+  } = params;
   try {
     const accountId = await getAccountId();
 
@@ -19,7 +22,7 @@ export const processContract = async (
     const envelope = await makeEnvelope(
       data,
       status,
-      params.signMethod,
+      signMethod,
     );
 
     let envSummary: EnvelopeSummary = Object.create(null);
@@ -40,10 +43,12 @@ export const processContract = async (
     if (envSummary.envelopeId && envelope.documents?.length) {
       console.log(`Updating projEstimateId. ${data.projEstimateId}`);
       const {envelopeId, status} = envSummary;
+
       await updateEstimateEnvelope({
         envelopeId: envelopeId,
         envelopeStatus: status ?? 'sent',
         event: 'envelope-sent',
+        signMethod: signMethod,
         documents: envelope.documents?.map(({documentBase64, name}) => {
           return {
             fileBase64: documentBase64 || '',
@@ -53,6 +58,7 @@ export const processContract = async (
         recipients: [],
         projEstimateId: data.projEstimateId,
       });
+
       console.log(`Done updating midumori. ${data.projEstimateId}`);
       envDocFileKeys = envelope
         .documents?.map((d) => d.documentBase64 ?? '') ?? [];
