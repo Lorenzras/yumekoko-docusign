@@ -20,7 +20,7 @@ type TReqPreviewParams = {
 interface ReqSendContract {
   userCode: string,
   projEstimateId: string,
-  signMethod: 'electronic' | 'wetInk',
+  signMethod?: 'electronic' | 'wetInk',
 }
 interface ReqDownloadParams {
   userCode: string,

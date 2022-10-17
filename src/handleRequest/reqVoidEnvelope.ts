@@ -35,8 +35,7 @@ export const reqVoidEnvelope : RequestHandler = async (
     const record : Partial<ProjectDetails.SavedData> = {
       envelopeId: {value: ''},
       envDocFileKeys: {value: []} as any, // Remove attached files
-      envelopeStatus: {value: ''},
-
+      envelopeStatus: {value: 'voiding'},
     };
 
     await KintoneRecord.updateRecord({
@@ -47,7 +46,7 @@ export const reqVoidEnvelope : RequestHandler = async (
 
     res.status(200).json({
       voidSuccess: true,
-      envelopeStatus: 'voided',
+      envelopeStatus: 'voiding',
       envelopSummary: result,
     } as IVoidRes);
   } catch (err: any) {

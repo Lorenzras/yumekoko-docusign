@@ -12,6 +12,7 @@ type TEnvelopeStatus =
 | 'created'
 | 'completed'
 | 'delivered'
+| 'voiding'
 | 'voided'
 | '' ;
 

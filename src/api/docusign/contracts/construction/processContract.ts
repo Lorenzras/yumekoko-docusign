@@ -13,6 +13,7 @@ export const processContract = async (
     signMethod,
   } = params;
   try {
+    console.log('SIGN METHOD', signMethod);
     const accountId = await getAccountId();
 
     const data = await getContractData(params, true);
