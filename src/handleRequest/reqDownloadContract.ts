@@ -13,8 +13,7 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
       projEstimateId,
       userCode = 'RPA03',
       fileType,
-    } = req.query as ReqDownloadParams;
-    console.log('hello', req.query);
+    } = req.query as unknown as ReqDownloadParams;
 
     let file;
 

@@ -7,7 +7,7 @@ it('should make envelop', async () => {
     projEstimateId: '74',
     userCode: 'RPA03',
   });
-  const result = await makeEnvelope(data, 'created');
+  const result = await makeEnvelope(data, 'created', 'wetInk');
 
   expect(result).toMatchSnapshot();
 }, 30000);

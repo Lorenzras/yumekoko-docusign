@@ -13,7 +13,9 @@ const isProd = process.env.NODE_ENV !== 'test';
 
 export const makeEnvelope = async (
   data: Awaited<ReturnType<typeof getContractData>>,
-  status: 'created' | 'sent' = 'sent') => {
+  status: 'created' | 'sent' = 'sent',
+  signMethod: ReqSendContract['signMethod'],
+) => {
   const {
     customers,
     cocoAG,
@@ -33,55 +35,79 @@ export const makeEnvelope = async (
 
   const documentBase64 = await generateContractPdf(data, 'base64') as string;
 
-  const customerSigners = customers
-    .map<Signer>(
-    (
-      {
-        custName,
-        email: custEmail,
-      },
-      idx,
-    ) => {
-      return {
-        email: custEmail,
-        name: custName,
-        roleName: '顧客',
-        recipientId: `${1}${idx}`,
-        routingOrder: '1',
-        tabs: {
-          signHereTabs: [{
-            anchorString: `c${idx + 1}`,
-            anchorYOffset: '5',
-            scaleValue: '66',
-            documentId: '1',
-            pageNumber: '1',
-            tabLabel: 'c',
-          }],
+  const signers : Signer[] = [];
+
+  /* 電子署名の場合 */
+  if (signMethod === 'electronic') {
+    /* 顧客 */
+    signers.push(...customers
+      .map<Signer>(
+      (
+        {
+          custName,
+          email: custEmail,
         },
-      };
+        idx,
+      ) => {
+        return {
+          email: custEmail,
+          name: custName,
+          roleName: '顧客',
+          recipientId: `${1}${idx}`,
+          routingOrder: '1',
+          tabs: {
+            signHereTabs: [{
+              anchorString: `c${idx + 1}`,
+              anchorYOffset: '5',
+              scaleValue: '66',
+              documentId: '1',
+              pageNumber: '1',
+              tabLabel: 'c',
+            }],
+          },
+        };
+      }));
+
+    /* 担当者 */
+    signers.push({
+      email: isProd ? officerEmail :testTantouEmail,
+      name: officerName,
+      roleName: '担当者',
+      recipientId: '2',
+      routingOrder: '2',
+      tabs: {
+        approveTabs: [{
+          anchorString: '/tt/',
+          documentId: '1',
+          pageNumber: '1',
+          tabLabel: '担当者',
+        }],
+      },
     });
+  } else {
+    /* 紙契約の場合 */
+    signers.push({
+      email: isProd ? officerEmail :testTantouEmail,
+      name: officerName,
+      roleName: '担当者',
+      recipientId: '2',
+      routingOrder: '2',
+      tabs: {
+        signerAttachmentTabs: [{
+          anchorString: '/tt/',
+          documentId: '1',
+          pageNumber: '1',
+          tabLabel: '担当者',
+        }],
+      },
+    });
+  }
 
 
-  /* 担当者 */
-  const officerSinger: Signer = {
-    email: isProd ? officerEmail :testTantouEmail,
-    name: officerName,
-    roleName: '担当者',
-    recipientId: '2',
-    routingOrder: '2',
-    tabs: {
-      approveTabs: [{
-        anchorString: '/tt/',
-        documentId: '1',
-        pageNumber: '1',
-        tabLabel: '担当者',
-      }],
-    },
-  };
-
+  /* 共通 */
 
   /* 店長 */
-  const tenchoSigner: Signer = {
+  signers.push({
     email: isProd ? storeMngrEmail : testTenchoEmail,
     name: storeMngrName,
     roleName: '店長',
@@ -95,10 +121,10 @@ export const makeEnvelope = async (
         tabLabel: '店長',
       }],
     },
-  };
+  });
 
   /* 経理 */
-  const accountingSigner: Signer = {
+  signers.push({
     email: isProd ? accountingEmail : testKeiriEmail,
     name: accountingName,
     roleName: '経理',
@@ -112,7 +138,7 @@ export const makeEnvelope = async (
         tabLabel: '経理',
       }],
     },
-  };
+  });
 
 
   const env: EnvelopeDefinition = {
@@ -127,12 +153,7 @@ export const makeEnvelope = async (
       },
     ],
     recipients: {
-      signers: [
-        ...customerSigners, // 顧客
-        officerSinger, // 担当者
-        tenchoSigner, // 店長,
-        accountingSigner, // 経理
-      ],
+      signers: signers,
     },
     status: status,
   };

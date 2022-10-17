@@ -6,10 +6,7 @@ import {getAccountId} from '../../authentication';
 import {makeEnvelope} from './makeEnvelope';
 
 export const processContract = async (
-  params: {
-    projEstimateId: string,
-    userCode: string
-  },
+  params: ReqSendContract,
   status: 'created' | 'sent' = 'sent',
 ) => {
   try {
@@ -19,7 +16,12 @@ export const processContract = async (
 
     const envelopesApi = new EnvelopesApi(apiClient);
 
-    const envelope = await makeEnvelope(data, status);
+    const envelope = await makeEnvelope(
+      data,
+      status,
+      params.signMethod,
+    );
+
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];
 
