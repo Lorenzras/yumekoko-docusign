@@ -4,10 +4,9 @@ import {grayscale, PDFDocument} from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import {drawText} from '../helpers/pdf';
-import {assetsDir} from '../config/file';
+import {assetsDir, latestPDF} from '../config/file';
 import {format, parseISO} from 'date-fns';
-import {getPayMethodX} from './generateContractPdfHelper';
-import {Console} from 'winston/lib/winston/transports';
+import {drawCustAddress, getPayMethodX} from './generateContractPdfHelper';
 
 
 /**
@@ -24,7 +23,8 @@ export const generateContractPdf = async (
 ) => {
   const {
     projId, projName, projLocation,
-    custName, custAddress, cocoAG,
+    customers,
+    cocoAG,
     payments,
     calculatedEstimates: {
       totalAmountInclTax,
@@ -45,7 +45,7 @@ export const generateContractPdf = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  const url = path.join(assetsDir, '請負契約書.pdf');
+  const url = path.join(assetsDir, latestPDF);
   const existingPdfBytes = await fs.readFile(url);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
@@ -89,7 +89,7 @@ export const generateContractPdf = async (
   // 顧客名
   drawText(
     firstPage,
-    `${custName} 様`,
+    customers.map(({custName}) => `${custName} 様` ).join(' と '),
     {
       x: x1,
       y: 680,
@@ -117,17 +117,17 @@ export const generateContractPdf = async (
   // 顧客住所
   drawText(
     firstPage,
-    custAddress,
+    customers[0].address,
     {
       x: x2,
-      y: 236,
+      y: 238,
       size: 9,
       font: msChinoFont,
-    },
-    {
-      weight: 0.3,
+    }, {
+      weight: 0.1,
     },
   );
+  // drawCustAddress(customers, x2, firstPage, msChinoFont);
 
   // 工事場所
   drawText(
@@ -289,21 +289,17 @@ export const generateContractPdf = async (
 
   /* 支払い */
   const payLineHeight = 14;
-  const payBase = 422.5;
+  const payYBase = 422.5;
   payments.map(({
     paymentAmt,
     paymentDate,
   }, idx) => {
-    const rowY = payBase - (idx * payLineHeight);
+    const rowY = payYBase - (idx * payLineHeight);
     const resolvePayAmt = paymentAmt ? paymentAmt.toLocaleString() : '';
     let resolvePayDate = '';
 
-    if (resolvePayAmt) {
-      if (paymentDate) {
-        resolvePayDate = format(parseISO(paymentDate), 'yyyy年MM月dd日');
-      } else {
-        resolvePayDate = '未定';
-      }
+    if (resolvePayAmt && paymentDate) {
+      resolvePayDate = format(parseISO(paymentDate), 'yyyy年MM月dd日');
     }
 
     /* 支払額 */
@@ -367,15 +363,15 @@ export const generateContractPdf = async (
 
 
   // 顧客名 下
-  drawText(
+  /*   drawText(
     firstPage,
-    `${custName} 様`,
+    customers.map(({custName}) => custName ).join(' と '),
     {
       x: x2,
-      y: 223,
+      y: 228,
       font: msChinoFont,
     },
-  );
+  ); */
 
   // 担当者名
   drawText(
@@ -383,7 +379,7 @@ export const generateContractPdf = async (
     officerName,
     {
       x: x2,
-      y: 151,
+      y: 152,
       font: msChinoFont,
     },
   );

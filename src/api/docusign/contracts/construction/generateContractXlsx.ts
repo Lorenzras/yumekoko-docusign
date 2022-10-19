@@ -18,7 +18,7 @@ export const generateContractXlsx = async (
 ) => {
   const {
     projId, projLocation, projName,
-    custName, custAddress,
+    customers,
     cocoAG,
   } = contractData;
 
@@ -44,11 +44,11 @@ export const generateContractXlsx = async (
     .forEach((c) => ws.getCell(c).value = projName);
 
   // 発注者
-  ['G9', 'K41']
-    .forEach((c) => ws.getCell(c).value = `${custName} 様`);
+  /* ['G9', 'K41']
+    .forEach((c) => ws.getCell(c).value = `${custName} 様`); */
 
   // 発注者の住所
-  ws.getCell('K40').value = custAddress;
+  // ws.getCell('K40').value = custAddress;
 
   // 担当者名
   ws.getCell('K46').value = officerName;

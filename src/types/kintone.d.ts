@@ -18,11 +18,13 @@ type TReqPreviewParams = {
 }
 
 interface ReqSendContract {
-  [k: string]: string,
   userCode: string,
   projEstimateId: string,
+  signMethod?: 'electronic' | 'wetInk',
 }
-interface ReqDownloadParams extends ReqSendContract {
+interface ReqDownloadParams {
+  userCode: string,
+  projEstimateId: string,
   fileType: 'pdf' | 'xlsx',
 }
 

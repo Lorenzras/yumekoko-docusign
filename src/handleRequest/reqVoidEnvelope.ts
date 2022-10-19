@@ -32,11 +32,9 @@ export const reqVoidEnvelope : RequestHandler = async (
     } = await getEstimateByEnvId(envelopeId);
     console.log(`Voiding envelope id: ${envelopeId}`);
 
-    const record : Partial<ProjectDetails.SavedData> = {
-      envelopeId: {value: ''},
+    const record : Partial<ProjectEstimates.SavedData> = {
       envDocFileKeys: {value: []} as any, // Remove attached files
-      envelopeStatus: {value: ''},
-
+      envStatus: {value: 'voiding'},
     };
 
     await KintoneRecord.updateRecord({
@@ -47,7 +45,7 @@ export const reqVoidEnvelope : RequestHandler = async (
 
     res.status(200).json({
       voidSuccess: true,
-      envelopeStatus: 'voided',
+      envelopeStatus: 'voiding',
       envelopSummary: result,
     } as IVoidRes);
   } catch (err: any) {

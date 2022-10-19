@@ -18,7 +18,7 @@ route.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 
 route.use(bodyParserErrorHandler({
   onError: (err: unknown) => {
-    console.log(err);
+    console.log('Body', err);
   },
 }));
 

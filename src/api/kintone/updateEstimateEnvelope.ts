@@ -9,9 +9,11 @@ export const updateEstimateEnvelope = async ({
   event,
   recipients,
   projEstimateId,
+  signMethod,
 } : {
   custGroupId?: string,
   projEstimateId?: string,
+  signMethod?: ReqSendContract['signMethod'],
   envelopeId: string,
   documents: {
     fileBase64 :string,
@@ -46,7 +48,6 @@ export const updateEstimateEnvelope = async ({
 
   // Generate updated record and attach the file
   const record : Partial<ProjectEstimates.SavedData> = {
-
     envId: {
       value: envelopeId,
     },
@@ -74,6 +75,10 @@ export const updateEstimateEnvelope = async ({
     ),
 
   };
+
+  if (signMethod) {
+    record['signMethod'] = {value: signMethod};
+  }
 
 
   // Save updated record
