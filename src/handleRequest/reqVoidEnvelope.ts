@@ -33,7 +33,6 @@ export const reqVoidEnvelope : RequestHandler = async (
     console.log(`Voiding envelope id: ${envelopeId}`);
 
     const record : Partial<ProjectEstimates.SavedData> = {
-      envId: {value: ''},
       envDocFileKeys: {value: []} as any, // Remove attached files
       envStatus: {value: 'voiding'},
     };
