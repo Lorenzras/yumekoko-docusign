@@ -17,6 +17,8 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
 
     let file;
 
+    console.log('reqDownloadContract received', req.query);
+
     if (!projEstimateId) throw new Error('projEstimateId not defined');
 
     const contractData = await getContractData({
@@ -24,7 +26,12 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
       userCode: userCode,
     });
 
-    const {projName, envelopeStatus} = contractData;
+    const {
+      projName,
+      envelopeStatus,
+    } = contractData;
+
+    console.log('Contract data', projName, envelopeStatus);
     switch (fileType) {
       case 'xlsx':
         file = await generateContractXlsx(contractData, 'xlsx') as Xlsx;
@@ -37,11 +44,13 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         console.log('Generating pdf');
         file = await generateContractPdf(contractData, 'base64');
 
-        res.status(200).json({
+        res.status(200).json( {
           // Array here to accomodate multi-documents in the future
           documents: [file],
           envelopeStatus,
         });
+
+        break;
     }
     res.end();
   } catch (err: any) {
