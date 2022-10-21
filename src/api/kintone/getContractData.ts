@@ -33,19 +33,20 @@ isValidate = false,
   /* 見積情報 */
   const estimatedRecord = await getEstimateById(projEstimateId);
   const {
+    signMethod,
     projId,
+    envId,
     totalPaymentAmt,
     envStatus,
-    envId,
     支払い,
     startDate,
     startDaysAfterContract,
     finishDate,
     finishDaysAfterContract,
     completeDate,
+    contractDate,
     payMethod,
     payDestination,
-    signMethod,
   } = estimatedRecord;
 
   const calculatedEstimates = await calculateEstimateRecord(estimatedRecord);
@@ -167,6 +168,7 @@ isValidate = false,
     finishDate: finishDate.value,
     finishDaysAfterContract: finishDaysAfterContract.value,
     completeDate: completeDate.value,
+    contractDate: contractDate.value ?? '',
 
     /* 支払い */
     payments,

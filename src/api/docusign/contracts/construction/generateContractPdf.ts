@@ -6,7 +6,7 @@ import fontkit from '@pdf-lib/fontkit';
 import {drawText} from '../helpers/pdf';
 import {assetsDir, latestPDF} from '../config/file';
 import {format, parseISO} from 'date-fns';
-import {drawCustAddress, getPayMethodX} from './generateContractPdfHelper';
+import {getPayMethodX} from './generateContractPdfHelper';
 
 
 /**
@@ -37,6 +37,7 @@ export const generateContractPdf = async (
     finishDate,
     finishDaysAfterContract,
     completeDate,
+    contractDate,
     payDestination,
     payMethod,
   } = contractData;
@@ -60,7 +61,7 @@ export const generateContractPdf = async (
   const firstPage = pages[0];
 
   // Common alignments
-  const x1 = 124;
+  const x1 = 124; // 工事番号
   const x2 = 183;
   const x3 = 239;
 
@@ -361,17 +362,20 @@ export const generateContractPdf = async (
     );
   }
 
-
-  // 顧客名 下
-  /*   drawText(
+  // 契約日
+  drawText(
     firstPage,
-    customers.map(({custName}) => custName ).join(' と '),
+    contractDate ? format(parseISO(contractDate), 'yyyy年MM月dd日') : '',
     {
-      x: x2,
-      y: 228,
+      x: x1,
+      y: 252,
       font: msChinoFont,
+      size: 9,
     },
-  ); */
+    {
+      weight: 0.1,
+    },
+  );
 
   // 担当者名
   drawText(
