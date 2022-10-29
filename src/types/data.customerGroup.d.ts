@@ -2,43 +2,48 @@ declare namespace CustomerGroupTypes {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
+    custNames: kintone.fieldTypes.SingleLineText;
+    cocoAGNames: kintone.fieldTypes.SingleLineText;
     isDeleted: kintone.fieldTypes.Number;
+    yumeAGNames: kintone.fieldTypes.SingleLineText;
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
+          projId: kintone.fieldTypes.Number;
+          projName: kintone.fieldTypes.SingleLineText;
           cancelStatus: kintone.fieldTypes.SingleLineText;
-          cocoConst2: kintone.fieldTypes.Number;
           kariAddress: kintone.fieldTypes.SingleLineText;
-          cocoConst1: kintone.fieldTypes.Number;
           cocoConst2Name: kintone.fieldTypes.SingleLineText;
-          projectPostal: kintone.fieldTypes.SingleLineText;
-          constructionName: kintone.fieldTypes.SingleLineText;
-          constructionId: kintone.fieldTypes.Number;
-          cocoConst1Name: kintone.fieldTypes.SingleLineText;
           projectAddress1: kintone.fieldTypes.SingleLineText;
+          envStatus: kintone.fieldTypes.SingleLineText;
           projectAddress2: kintone.fieldTypes.SingleLineText;
+          cocoConst2: kintone.fieldTypes.Number;
+          cocoConst1: kintone.fieldTypes.Number;
+          projectPostal: kintone.fieldTypes.SingleLineText;
+          cocoConst1Name: kintone.fieldTypes.SingleLineText;
           status: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
+          email: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
     members: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
