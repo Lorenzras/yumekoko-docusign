@@ -31,7 +31,7 @@ export const updateCustGroup = async () => {
                 {value: {agentType, employeeName}},
               ) => !!employeeName.value && agentType.value === 'yumeAG' )
               .map(({value: {employeeName}})=>employeeName.value)
-              .join(','),
+              .join(', '),
           },
           cocoAGNames: {
             value: agents.value
@@ -39,7 +39,7 @@ export const updateCustGroup = async () => {
                 {value: {agentType, employeeName}},
               ) => !!employeeName.value && agentType.value === 'cocoAG' )
               .map(({value: {employeeName}})=>employeeName.value)
-              .join(','),
+              .join(', '),
           },
         },
       };
