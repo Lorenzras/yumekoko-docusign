@@ -19,11 +19,11 @@ export const syncProjectsToCustGroup = async () => {
           projectCount: {value: `${projects.value.length ?? 0}`},
           projects: {
             value: projects.value.map(({value})=>{
-              const {constructionId} = value;
+              const {projId} = value;
 
               return {
                 value: {
-                  constructionId: {value: constructionId.value},
+                  projId: {value: projId.value},
                 },
               };
             }),
