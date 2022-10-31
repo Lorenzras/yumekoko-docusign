@@ -18,10 +18,10 @@ export const updateCustGroupLinkedProjects = async (custGroupId: string) => {
       type: 'SUBTABLE',
       value: projects.value.map((row)=>{
         const {value} = row;
-        const {constructionId} = value;
+        const {projId} = value;
         return {
           value: {
-            constructionId: {value: constructionId.value},
+            projId: {value: projId.value},
           },
         };
       }),

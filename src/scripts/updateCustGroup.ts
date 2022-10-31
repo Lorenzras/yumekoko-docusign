@@ -6,6 +6,10 @@ export const updateCustGroup = async () => {
       app: APPIDS.custGroup,
     }) as unknown as CustomerGroupTypes.SavedData[];
 
+    const customerRecords = await KintoneRecord.getAllRecords({
+      app: APPIDS.customers,
+    }) as unknown as Customers.SavedData[];
+
 
     const updatedRecords = records
       .map<{
@@ -17,9 +21,26 @@ export const updateCustGroup = async () => {
       agents,
       members,
     })=>{
+      const getCustData = (cId: string) => customerRecords.find(({
+        $id: custId,
+      }) => custId.value === cId);
       return {
         id: $id.value,
         record: {
+          members: {
+            type: 'SUBTABLE',
+            value: members.value.map((row) => {
+              const {value} = row;
+              const {customerId} = value;
+              return {
+                ...row,
+                value: {
+                  ...value,
+                  dump: {value: JSON.stringify(getCustData(customerId.value))},
+                },
+              };
+            }),
+          },
           custNames: {
             value: members.value
               .map(({value: {customerName}})=>customerName.value)
